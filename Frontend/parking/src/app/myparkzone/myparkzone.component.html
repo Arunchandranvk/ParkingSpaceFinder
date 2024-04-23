@@ -1,0 +1,57 @@
+
+<nav class="navbar navbar-expand-lg bg-primary  " style="width: 100%;  z-index: 1000;">
+    <div class="container-fluid">
+        <a class="navbar-brand ms-lg-5 fw-bold font-awesome fs-2" routerLink="main/home"
+            style="color:  #ffffff;">Parking Space Finder</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bold text-light">
+                <button class="btn btn- ms-lg-3 me-5 text-white fw-bold border-white" routerLink="/location"
+                    style="color: #ffffff;"><i class="fa-solid fa-house"></i> Home</button>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<h1 class="fw-normal  text-center mt-2" style="letter-spacing: 1px;font-family: 'Times New Roman', Times, serif;font-weight: bold;" >
+  {{data.name | titlecase }}
+</h1>
+<div class="row" style="width: 100%;padding:20px;">
+         <div class="col-2"></div>
+    <div class="col-lg-8 ">
+      <div class="card mt-1 ml-1 " style="height: 450px;padding:20px;" >
+        <div class="row">
+          <div class="col-5">
+            <h4 class="card-title text-center">{{data.name}}</h4>
+
+            <img src="assets/4.jpeg" class="card-img-top" alt="..." height="300px" width="250px">
+          </div>
+          <div class="col" style="height: 300px;padding-top: 10px;">
+            <!-- <div class="card-body mr-1">
+        
+            </div> -->
+            <ul class="list-group list-group-flush mr-1">
+              <li class="list-group-item">Total Slots: {{ data.total_slots }}</li>
+                    <li class="list-group-item">Vaccant Slots: {{ data.vacant_slots }}</li>
+                    <li class="list-group-item">Occupied Slots: {{ data.occupied_slots }}</li>
+                    <li class="list-group-item">Price: {{ data.price }}</li>
+                    <li class="list-group-item">State: {{ data.state_name }}</li>
+                    <li class="list-group-item">District: {{ data.district_name }}</li>
+                    <li class="list-group-item">Location: {{ data.location_name }}</li>
+                    <li class="list-group-item">Vehicle Type: {{ data.vehicle_type }}</li>
+                    </ul>
+                  <div>
+                
+                        
+                        <a [routerLink]="'/reservation/' + data.id"  class="btn btn-info btn-block mt-4 ml-4">Reserve Slot</a>  
+                       
+            </div>
+  
+      </div>
+</div>
+<div class="col-3"></div>
+
+</div>

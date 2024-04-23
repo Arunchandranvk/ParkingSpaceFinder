@@ -1,0 +1,51 @@
+<app-header></app-header>
+<!--  login form -->
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <!-- image -->
+      <img class="m-3 me-5" width="500px" height="500px"
+    src="https://img.freepik.com/premium-vector/car-parking-sign-parking-space-icon-parking-lot-car-parking-flat-style-vector-illustration-web-element_435184-1157.jpg"
+        alt="">
+    </div>
+    <div class="col-6 mb-3">
+      <!-- login-form -->
+      <form class="mt-5 border px-5 mx-3 rounded shadow">
+        <h3 class="text-primary text-center my-3">Login Here</h3>
+        <!-- Email input -->
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form1Example1">User Name</label>
+          <input name="username" formControlName="username" type="text" id="form1Example1" class="form-control" />
+
+        </div>
+
+        <!-- Password input -->
+        <div class="form-outline mb-4">
+          <label class="form-label" for="form1Example2">Password</label>
+          <input name="password" formControlName="password" type="password" id="form1Example2" class="form-control" />
+
+        </div>
+
+        <!-- 2 column grid layout for inline styling -->
+        <div class="row mb-4">
+          <div class="col d-flex">
+            <!-- Checkbox -->
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
+              <label class="form-check-label" for="form1Example3"> Remember me </label>
+            </div>
+          </div>
+        </div>
+        <div class="text-center">
+        <h6 class="text-danger"></h6>
+          <!-- Submit button -->
+          <button type="submit" class="btn btn-primary btn-block mb-2" routerLink="/table">Sign in
+           
+          </button>
+          <p>New to here? <a routerLink="/adminregister"> Please Register </a></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

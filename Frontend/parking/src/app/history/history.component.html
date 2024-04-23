@@ -1,0 +1,65 @@
+<nav class="navbar navbar-expand-lg bg-primary  " style="width: 100%;  z-index: 1000;">
+  <div class="container-fluid">
+    <a class="navbar-brand ms-lg-5 fw-bold font-awesome fs-2" routerLink="main/home" style="color:  #ffffff;">Parking
+      Space Finder</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bold text-light">
+        <button class="btn btn- ms-lg-3 me-5 text-white fw-bold border-white" routerLink="/location" style="color: #ffffff;"><i
+            class="fa-solid fa-house"></i> Home</button>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+
+<h1 class="fw-normal  text-center " style="letter-spacing: 1px;font-family: 'Times New Roman', Times, serif;font-weight: bold;" >
+  My Bookings
+</h1>
+
+    
+    <!-- {% if i.doctor.user == self.request.user.id %} -->
+    <table class="table mt-2 mb-2 "  style="padding: 20px;">
+           <tr  > 
+           <th >Parkzone </th>
+           <th >Slot </th>
+           <th >Vehicle </th>
+           <th >Ticket Code </th>
+           <th >Booking Date</th>
+           <th >Start Time</th>
+           <th >End Time</th>
+           <!-- <th >Checkout</th> -->
+           <th >Price</th>
+           <th >Check out </th>
+        
+           </tr>
+           <!-- {% for i in data %} -->
+           <tr   *ngFor="let i of res"> 
+           <td >{{i.zone}}</td>
+           <td >{{i.slot_number}}</td>
+           <td >{{i.vehicle_numberplate}}</td>
+           <td >{{i.ticket_code}}</td>
+           <td >{{i.booking_date}}</td>
+           <td >{{i.start_time}}</td>
+           <td >{{i.end_time}}</td>
+           <!-- <td >{{i.checkout}}</td> -->
+           <td  >{{i.price}}</td>
+       
+           <td >
+            <a *ngIf="!i.checkout" class="btn btn-warning btn-block"   >Not Checkouted</a>
+            <a *ngIf="i.checkout" class="btn btn-success btn-block"   >Checkouted</a>
+          </td>
+    
+           </tr>
+          </table>
+
+
+
+
+
+
+
+<!-- <app-footer></app-footer> -->

@@ -1,0 +1,125 @@
+<nav class="navbar navbar-expand-lg bg-primary  " style="width: 100%;  z-index: 1000;">
+    <div class="container-fluid">
+        <a class="navbar-brand ms-lg-5 fw-bold font-awesome fs-2" routerLink="main/home"
+            style="color:  #ffffff;">Parking Space Finder</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bold text-light">
+                <button class="btn btn- ms-lg-3 me-5 text-white fw-bold border-white" routerLink="/table"
+                    style="color: #ffffff;"><i class="fa-solid fa-house"></i> Home</button>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Register landing page -->
+
+  <!--  Register form -->
+  <div  class="container">
+    <div class="row">
+      <div class="col-4 mt-4">
+        <!-- image -->
+        <img class="m-3" width="100%" height="500px"
+          src="https://img.freepik.com/premium-vector/car-parking-sign-parking-space-icon-parking-lot-car-parking-flat-style-vector-illustration-web-element_435184-1157.jpg"
+          alt="">
+      </div>
+      <div class="col-8 mb-3">
+        <!-- Register-form -->
+        <form [formGroup]="addparkzoneform"  (ngSubmit)="addzone()" class="mt-5 border px-5 mx-3 rounded shadow" enctype="multipart/form-data">
+          <h3 class="text-primary text-center my-3">Add Parkzone</h3>
+          <!-- firstname input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form1Example1">Name</label>
+            <input name="first_name" formControlName="name" type="text" id="form1Example1" class="form-control" required>
+           
+          </div>
+          <!-- last Name input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form1Example2">Total Slots</label>
+            <input name="last_name" formControlName="total_slots" type="text" id="form1Example2" class="form-control" />
+          
+          </div>
+
+         
+
+         
+        <div class="form-outline mb-4">
+            <label class="form-label" for="form1Example4">Vacant Slots</label>
+            <input name="vacant_slots" formControlName="vacant_slots" type="text" id="form1Example4" class="form-control" />
+            
+          </div>
+  
+          <!-- Password input -->
+          <div class="form-outline mb-4">
+            <label class="form-label" for="form1Example5">Occupied Slots</label>
+            <input name="occupied_slots" formControlName="occupied_slots" type="text" id="form1Example5" class="form-control" />
+           
+  
+          </div>
+
+          <!-- Dob  -->
+        <div class="form-outline mb-4">
+            <label class="form-label" for="form1Example6">Price</label>
+            <input name="price" formControlName="price" type="number" id="form1Example6" class="form-control" />
+            
+          </div>
+
+           <!-- Gender -->
+       
+
+           <!-- address  -->
+        <div class="form-outline mb-4">
+            <label class="form-label" for="form1Example8">Location</label>
+            <select formControlName="location" class="form-control">
+              <option  value="1">Kakkanad</option>
+              <option  value="2">Kaloor</option>
+              <option  value="3">Edappally</option>
+              <option  value="4">Aluva</option>
+              <option  value="5">JNL</option>
+              <option  value="6">Fort Kochi</option>
+              <option  value="7">Chalakudy</option>
+              <option  value="8">Guruvayur</option>
+              <option  value="9">Irinjalakuda</option>
+              <option  value="10">Wadakancherry</option>
+            </select>
+
+          </div>
+
+           <!-- phone number  -->
+         <div class="form-outline mb-4">
+            <label class="form-label" for="form1Example9">Vehicle Type</label>
+            <select formControlName="vehicle_type" class="form-control">
+              <option  value="bike">Bike</option>
+              <option  value="car">Car</option>
+              <option  value="heavy">Heavy</option>
+            </select>
+          </div>
+           <!-- Email input -->
+        <div class="form-outline mb-4">
+            <label class="form-label" for="form1Example3">State</label>
+            <input name="price" formControlName="state" type="number" id="form1Example6" class="form-control" />
+
+            <!-- <select formControlName="state" class="form-control">
+              <option *ngFor="let num of state" [value]="num.id">{{ num.name }}</option>
+            </select> -->
+          </div>
+        <div class="form-outline mb-4">
+            <label class="form-label" for="form1Example3">District</label>
+            <input name="district" formControlName="district" type="text" id="form1Example3" class="form-control" />
+           
+          </div>
+        
+  
+
+          <div class="text-center">
+            
+            <button type="submit" class="btn btn-primary btn-block mb-2">Submit</button>
+            
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+<app-footer></app-footer>

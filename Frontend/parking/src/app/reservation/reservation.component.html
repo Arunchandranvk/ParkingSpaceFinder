@@ -1,0 +1,82 @@
+<nav class="navbar navbar-expand-lg bg-primary  " style="width: 100%;  z-index: 1000;">
+    <div class="container-fluid">
+        <a class="navbar-brand ms-lg-5 fw-bold font-awesome fs-2" routerLink="main/home"
+            style="color:  #ffffff;">Parking Space Finder</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bold text-light">
+                <button class="btn btn- ms-lg-3 me-5 text-white fw-bold border-white" routerLink="/parkzone/ + pk"
+                    style="color: #ffffff;"> Back</button>
+                <button class="btn btn- ms-lg-3 me-5 text-white fw-bold border-white" routerLink="/location"
+                    style="color: #ffffff;"><i class="fa-solid fa-house"></i> Home</button>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Register landing page -->
+
+  <!--  Register form -->
+  <div  class="container">
+    <div class="row">
+     
+
+  <!-- <pre>{{ data.occ | json }}</pre> -->
+    <h3 class="text-primary text-center my-5">Select Slot</h3>
+    <h3>Reserve Slot</h3>
+    <div class="container">
+      <div class="row">
+        <div class="col-2 mb-2" *ngFor="let slot of generateRange(data.vacant_slots)" >
+          <!-- <div *ngFor="let s of slots" > -->
+            <!-- {{s.slot}} -->
+          <span class=" btn btn-secondary" *ngIf="slotStatus(slot) === 'occupied'"  >{{ slot }} <i class="fa-solid fa-car"></i></span>
+          <button class="btn btn-primary" *ngIf="slotStatus(slot) === 'vacant'"   (click)="selectSlot(slot)">{{ slot }} <i class="fa-solid fa-car"></i></button>
+        <!-- </div> -->
+        </div>
+       
+      </div>
+      
+      </div>
+    <form [formGroup]="reservationform" (ngSubmit)="reserve()" class="mt-3">
+   
+     
+      
+      
+          <!-- Reservation details form -->
+          <div class="container mt-5">
+            <div class="row">
+              <div class="col-md-6 offset-md-3">
+           
+                  <div class="mb-3">
+                    <label for="slotNumber" class="form-label">Slot Number</label>
+                    <input type="text" formControlName="slot_number" id="slotNumber" class="form-control" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="vehicleNumber" class="form-label">Vehicle Number Plate</label>
+                    <input type="text" formControlName="vehicle_numberplate" id="vehicleNumber" class="form-control" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="phone" class="form-label">Phone</label>
+                    <input type="text" formControlName="phone" id="phone" class="form-control" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="startTime" class="form-label">Start Time</label>
+                    <input type="text" formControlName="start_time" id="startTime" class="form-control" required>
+                  </div>
+                  <div class="mb-3">
+                    <label for="endTime" class="form-label">End Time</label>
+                    <input type="text" formControlName="end_time" id="endTime" class="form-control">
+                  </div>
+                 
+                  <button type="submit" class="btn btn-primary" >Reserve Slot</button>
+                
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  
+<!-- <app-footer></app-footer> -->

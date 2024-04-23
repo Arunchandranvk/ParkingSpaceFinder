@@ -1,0 +1,51 @@
+
+<nav class="navbar navbar-expand-lg bg-primary  " style="width: 100%;  z-index: 1000;">
+    <div class="container-fluid">
+        <a class="navbar-brand ms-lg-5 fw-bold font-awesome fs-2" routerLink="main/home"
+            style="color:  #ffffff;">Parking Space Finder</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bold text-light">
+                <button class="btn btn- ms-lg-3 me-5 text-white fw-bold border-white" routerLink="/location"
+                    style="color: #ffffff;"><i class="fa-solid fa-house"></i> Home</button>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<h1 class="text-center mt-2 " style="letter-spacing: 1px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Parkzones</h1>
+
+<div class="row " style="width:100%;">
+
+    <div class="col-md-3 mt-2"  *ngFor="let i of zones">
+        <a [routerLink]="'/parkzone/' + i.id"  style="text-decoration: none;">
+        <div class="card mt-4" >
+            <div class="card-body">
+                <div class="text-center">
+                    <img class="rounded-circle" src="assets/4.jpeg" alt="Profile Image" style="height: 200px; width: 200px;">
+                </div>
+                <div class="text-center mt-3"  > 
+                    <h5 class="card-title">{{ i.name| titlecase }} </h5>
+                    <p class="card-text">{{ i.owner }}</p>
+                </div>
+                <ul class="list-group list-group-flush" >
+                    <li class="list-group-item">Total Slots: {{ i.total_slots }}</li>
+                    <li class="list-group-item">Vaccant Slots: {{ i.vacant_slots }}</li>
+                    <li class="list-group-item">Occupied Slots: {{ i.occupied_slots }}</li>
+                    <li class="list-group-item">Price: {{ i.price }}</li>
+                    <li class="list-group-item">State: {{ i.state_name }}</li>
+                    <li class="list-group-item">District: {{ i.district_name }}</li>
+                    <li class="list-group-item">Location: {{ i.location_name }}</li>
+                    <li class="list-group-item">Vehicle Type: {{ i.vehicle_type }}</li>
+                </ul>
+            </div>
+        </div>
+    </a>
+    </div>
+
+</div>
+
+<!-- <app-footer></app-footer> -->
