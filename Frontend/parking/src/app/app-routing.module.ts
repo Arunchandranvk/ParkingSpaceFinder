@@ -20,6 +20,11 @@ import { ViewbookingsComponent } from './viewbookings/viewbookings.component';
 import { MyparkzoneComponent } from './myparkzone/myparkzone.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { HistoryComponent } from './history/history.component';
+import { CurrentdayComponent } from './currentday/currentday.component';
+import { PaymentComponent } from './payment/payment.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { ViewfeedbackComponent } from './viewfeedback/viewfeedback.component';
+import { PayslipComponent } from './payslip/payslip.component';
 
 const routes: Routes = [
   {
@@ -71,7 +76,7 @@ const routes: Routes = [
     path:'updateparkzone',component:UpdateparkzonesComponent
   },
   {
-    path:'viewbooking',component:ViewbookingsComponent
+    path:'viewbooking/:pk',component:ViewbookingsComponent
   },
   {
     path:'parkzone/:pk',component:MyparkzoneComponent
@@ -81,9 +86,23 @@ const routes: Routes = [
   },
   {
     path:'history',component:HistoryComponent
+  },
+  {
+    path:'viewbooking/:pk/reservations',component:CurrentdayComponent
+  },
+  {
+    path:'payment/:pk',component:PaymentComponent
+  },
+  {
+    path:'feedback/:pk',component:FeedbackComponent
+  },
+  {
+    path:'viewfeedback/:pk',component:ViewfeedbackComponent
+  },
+  {
+    path:'payslip',component:PayslipComponent
   }
-
-  
+ 
 
 ];
 

@@ -17,7 +17,4 @@ res:any;
     this.ds.allreservedbooking().then(res=>res.json()).then(data=>this.res=data)
     console.log(this.res)
     }
-  
-
-
 }

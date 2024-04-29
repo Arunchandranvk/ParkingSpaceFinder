@@ -12,7 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 export class LoginComponent {
   log=this.fb.group({
     'username':['',[Validators.required,Validators.pattern("[a-zA-Z0-9]+")]],
-    'password':['',[Validators.required,Validators.minLength(3)]],
+    'password':['',[Validators.required,Validators.minLength(8)]],
     
   })
   

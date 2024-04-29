@@ -77,8 +77,8 @@ class ParkZone(models.Model):
     def get_location_name(self):
         return self.location.name if self.location else None
 
-    def __str__(self):
-        return f"{self.name} - {self.get_vehicle_type_display()},{self.location}, {self.district}, {self.state}"
+    # def __str__(self):
+    #     return f"{self.name} - {self.get_vehicle_type_display()},{self.location}, {self.district}, {self.state}"
 
 
 
@@ -120,22 +120,41 @@ class ReservedSlots(models.Model):
     booking_date=models.DateTimeField(auto_now_add=True)
     start_time=models.DateTimeField()
     end_time=models.DateTimeField()
-    checkin=models.BooleanField(default=True)
+    checkin=models.BooleanField(default=False)
     checkout=models.BooleanField(default=False)
-    # vehicle_type=models.CharField(max_length=100,choices=VEHICLE_CHOICES)
     price=models.DecimalField(max_digits=10, decimal_places=2, default=0.0)
-
+    is_paid=models.BooleanField(default=False)
     class Meta:
         ordering = ['-booking_date']
 
-  
     def __str__(self):
-        return f'Reservation for vehicle: {self.vehicle_numberplate}'
+        return self.vehicle_numberplate
     
 
 
 class ReservedZones(models.Model):
+    ReservedSlot=models.ForeignKey(ReservedSlots,on_delete=models.CASCADE,null=True)
     zone=models.ForeignKey(ParkZone,on_delete=models.CASCADE)
     slot=models.CharField(max_length=10)
     is_reserved=models.BooleanField(default=True)
+    date=models.DateTimeField(null=True)
+
     # checkout=models.BooleanField(default=False)
+
+class Feedback(models.Model):
+    message=models.TextField()
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    zone=models.ForeignKey(ParkZone,on_delete=models.CASCADE)
+
+    def get_user_name(self):
+        return self.user.username if self.user else None
+    
+
+class Payment(models.Model):
+    cardnumber=models.IntegerField()
+    expirationDate=models.CharField(max_length=10)
+    cvv=models.IntegerField()
+    amount=models.CharField(max_length=100)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    slot=models.ForeignKey(ReservedSlots,on_delete=models.CASCADE)
+

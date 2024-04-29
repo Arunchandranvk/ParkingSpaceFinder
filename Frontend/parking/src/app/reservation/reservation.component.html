@@ -8,7 +8,7 @@
         </button>
         <div class="collapse navbar-collapse " id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bold text-light">
-                <button class="btn btn- ms-lg-3 me-5 text-white fw-bold border-white" routerLink="/parkzone/ + pk"
+                <button class="btn btn- ms-lg-3 me-5 text-white fw-bold border-white" [routerLink]="'/parkzone/' + data.id"
                     style="color: #ffffff;"> Back</button>
                 <button class="btn btn- ms-lg-3 me-5 text-white fw-bold border-white" routerLink="/location"
                     style="color: #ffffff;"><i class="fa-solid fa-house"></i> Home</button>
@@ -28,7 +28,7 @@
     <h3>Reserve Slot</h3>
     <div class="container">
       <div class="row">
-        <div class="col-2 mb-2" *ngFor="let slot of generateRange(data.vacant_slots)" >
+        <div class="col-2 mb-2" *ngFor="let slot of generateRange(data.total_slots)" >
           <!-- <div *ngFor="let s of slots" > -->
             <!-- {{s.slot}} -->
           <span class=" btn btn-secondary" *ngIf="slotStatus(slot) === 'occupied'"  >{{ slot }} <i class="fa-solid fa-car"></i></span>
@@ -63,11 +63,11 @@
                   </div>
                   <div class="mb-3">
                     <label for="startTime" class="form-label">Start Time</label>
-                    <input type="text" formControlName="start_time" id="startTime" class="form-control" required>
+                    <input type="datetime-local" formControlName="start_time" id="startTime" class="form-control" required>
                   </div>
                   <div class="mb-3">
                     <label for="endTime" class="form-label">End Time</label>
-                    <input type="text" formControlName="end_time" id="endTime" class="form-control">
+                    <input type="datetime-local" formControlName="end_time" id="endTime" class="form-control">
                   </div>
                  
                   <button type="submit" class="btn btn-primary" >Reserve Slot</button>

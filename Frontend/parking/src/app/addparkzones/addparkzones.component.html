@@ -99,27 +99,48 @@
            <!-- Email input -->
         <div class="form-outline mb-4">
             <label class="form-label" for="form1Example3">State</label>
-            <input name="price" formControlName="state" type="number" id="form1Example6" class="form-control" />
-
+            <!-- <input name="price" formControlName="state" type="number" id="form1Example6" class="form-control" /> -->
+            <select formControlName="state" class="form-control">
+              <!-- <option  value="1">Andhra Pradhesh</option>
+              <option  value="2">Arunanchal   Pradhesh</option>
+              <option  value="6">Goa</option>
+              <option  value="11">Karnataka</option> -->
+              <option  value="12">Kerala</option>
+              <!-- <option  value="23">Tamilnadu</option>
+              <option  value="33">Delhi</option>
+              <option  value="24">Telangana</option>
+              <option  value="21">Rajasthan</option> -->
+              <!-- <option  value="10">Wadakancherry</option> -->
+            </select>
             <!-- <select formControlName="state" class="form-control">
               <option *ngFor="let num of state" [value]="num.id">{{ num.name }}</option>
             </select> -->
           </div>
         <div class="form-outline mb-4">
             <label class="form-label" for="form1Example3">District</label>
-            <input name="district" formControlName="district" type="text" id="form1Example3" class="form-control" />
-           
+            <!-- <input name="district" formControlName="district" type="text" id="form1Example3" class="form-control" /> -->
+            <select formControlName="district" class="form-control">
+              <option  value="5">Kasaragod</option>
+              <option  value="4">Kannur</option>
+              <option  value="8">Kozhikode</option>
+              <option  value="14">Wayanad</option>
+              <option  value="9">Malappuram</option>
+              <option  value="13">Thrissur</option>
+              <option  value="10">Palakkad</option>
+              <option  value="2">Ernakulam </option>
+              <option  value="3">Idukki</option>
+              <option  value="21">Alappuzha</option>
+              <option  value="7">Kottayam</option>
+              <option  value="11">Pathanamthitta</option>
+              <option  value="6">Kollam</option>
+              <option  value="12">Thiruvanathapuram</option>
+            </select>
           </div>
-        
-  
-
-          <div class="text-center">
-            
-            <button type="submit" class="btn btn-primary btn-block mb-2">Submit</button>
-            
+          <div class="text-center">          
+            <button type="submit" class="btn btn-primary btn-block mb-2">Submit</button>          
           </div>
         </form>
       </div>
     </div>
   </div>
-<app-footer></app-footer>
+<!-- <app-footer></app-footer> -->

@@ -27,6 +27,11 @@ import { ViewbookingsComponent } from './viewbookings/viewbookings.component';
 import { MyparkzoneComponent } from './myparkzone/myparkzone.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { HistoryComponent } from './history/history.component';
+import { CurrentdayComponent } from './currentday/currentday.component';
+import { PaymentComponent } from './payment/payment.component';
+import { FeedbackComponent } from './feedback/feedback.component';
+import { ViewfeedbackComponent } from './viewfeedback/viewfeedback.component';
+import { PayslipComponent } from './payslip/payslip.component';
 
 
 @NgModule({
@@ -53,7 +58,12 @@ import { HistoryComponent } from './history/history.component';
     ViewbookingsComponent,
     MyparkzoneComponent,
     ReservationComponent,
-    HistoryComponent
+    HistoryComponent,
+    CurrentdayComponent,
+    PaymentComponent,
+    FeedbackComponent,
+    ViewfeedbackComponent,
+    PayslipComponent
   ],
   imports: [
     BrowserModule,

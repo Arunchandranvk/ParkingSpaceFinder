@@ -1,27 +1,151 @@
 
-<nav class="navbar navbar-expand-lg bg-primary  " style="width: 100%;  z-index: 1000;">
+<nav class="navbar navbar-expand-lg bg-primary" style="width: 100%; z-index: 1000;">
     <div class="container-fluid">
         <a class="navbar-brand ms-lg-5 fw-bold font-awesome fs-2" routerLink="main/home"
-            style="color:  #ffffff;">Parking Space Finder</a>
+            style="color: #ffffff;">Parking Space Finder</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bold text-light">
-                <button class="btn btn- ms-lg-3 me-5 text-white fw-bold border-white" routerLink="/location"
-                    style="color: #ffffff;"><i class="fa-solid fa-house"></i> Home</button>
+                <form (ngSubmit)="search()">
+                    <div class="row">
+                    <div class="col">
+                      <label for="location" class="form-label">Location:</label>
+                      <select class="form-select" id="location" [(ngModel)]="location" name="location">
+                        <option  value="5">Kasaragod</option>
+                        <option  value="1">Kakkanad</option>
+                        <option  value="2">Kaloor</option>
+                        <option  value="3">Edappally</option>
+                        <option  value="4">Aluva</option>
+                        <option  value="5">JNL</option>
+                        <option  value="6">Fort Kochi</option>
+                        <option  value="7">Chalakudy</option>
+                        <option  value="8">Guruvayur</option>
+                        <option  value="9">Irinjalakuda</option>
+                        <option  value="10">Wadakancherry</option>
+                      </select>
+                    </div>
+                    <div class="col">
+                      <label for="vehicleType" class="form-label">Vehicle Type:</label>
+                      <select class="form-select" id="vehicleType" [(ngModel)]="vehicle_type" name="vehicleType">
+                        <option value="car">Car</option>
+                        <option value="bike">Bike</option>
+                        <option value="heavy">Heavy</option>
+                        <!-- Add other vehicle options as needed -->
+                      </select>
+                    </div>
+                    <div class="col " style="margin-top: 32px;">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+                </div>
+                  </form>
+                
             </ul>
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bold text-light">
+                <button class="btn btn- ms-lg-3 me-3 text-white fw-bold border-white" routerLink="/location"
+                    style="color: #ffffff;"><i class="fa-solid fa-house"></i> Home</button>
+                <!-- Search Form -->
+                
+            </ul>
+            
         </div>
+
     </div>
 </nav>
 
-<h1 class="text-center mt-2 " style="letter-spacing: 1px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Parkzones</h1>
+
+<h1 class="text-center mt-2 " style="letter-spacing: 1px;  font-weight: bold;">Parkzones</h1>
+
+
+
+<!-- <div class="container mt-5">
+    <h1 class="text-center mb-4">Search Park Zones</h1>
+    <form  (ngSubmit)="searchParkZones()">
+  
+      <div class="form-outline mb-4">
+          <label class="form-label" for="location">Location</label>
+          <select formControlName="location" id="location" class="form-control">
+              <option value="1">Kakkanad</option>
+              <option value="2">Kaloor</option>
+              <option value="3">Edappally</option>
+              <option value="4">Aluva</option>
+              <option value="5">JNL</option>
+              <option value="6">Fort Kochi</option>
+              <option value="7">Chalakudy</option>
+              <option value="8">Guruvayur</option>
+              <option value="9">Irinjalakuda</option>
+              <option value="10">Wadakancherry</option>
+          </select>
+      </div>
+  
+      <div class="form-outline mb-4">
+          <label class="form-label" for="vehicle_type">Vehicle Type</label>
+          <select formControlName="vehicle_type" id="vehicle_type" class="form-control">
+              <option value="bike">Bike</option>
+              <option value="car">Car</option>
+              <option value="heavy">Heavy</option>
+          </select>
+      </div>
+  
+   
+      <div class="form-outline mb-4">
+          <label class="form-label" for="state">State</label>
+          <select formControlName="state" id="state" class="form-control">
+              <option value="12">Kerala</option>
+          </select>
+      </div>
+  
+      <div class="form-outline mb-4">
+          <label class="form-label" for="district">District</label>
+          <select formControlName="district" id="district" class="form-control">
+              <option value="5">Kasaragod</option>
+              <option value="4">Kannur</option>
+              <option value="8">Kozhikode</option>
+              <option value="14">Wayanad</option>
+              <option value="9">Malappuram</option>
+              <option value="13">Thrissur</option>
+              <option value="10">Palakkad</option>
+              <option value="2">Ernakulam</option>
+              <option value="3">Idukki</option>
+              <option value="21">Alappuzha</option>
+              <option value="7">Kottayam</option>
+              <option value="11">Pathanamthitta</option>
+              <option value="6">Kollam</option>
+              <option value="12">Thiruvananthapuram</option>
+          </select>
+      </div>
+  
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+  </div>
+  
+  <div class="container mt-5" *ngIf="parkZones && parkZones.length">
+    <h2 class="text-center mb-4">Matching Park Zones</h2>
+    <div class="row">
+      <div class="col-md-6 offset-md-3">
+        <div *ngFor="let zone of parkZones" class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title">{{ zone.name }}</h5>
+            <p class="card-text">State: {{ zone.state }}</p>
+            <p class="card-text">District: {{ zone.district }}</p>
+            <p class="card-text">Location: {{ zone.location }}</p>
+            <p class="card-text">Vehicle Type: {{ zone.vehicle_type }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+   -->
+
+
+
 
 <div class="row " style="width:100%;">
 
     <div class="col-md-3 mt-2"  *ngFor="let i of zones">
-        <a [routerLink]="'/parkzone/' + i.id"  style="text-decoration: none;">
+        <a [routerLink] = "'/parkzone/' + i.id"  style="text-decoration: none;">
         <div class="card mt-4" >
             <div class="card-body">
                 <div class="text-center">

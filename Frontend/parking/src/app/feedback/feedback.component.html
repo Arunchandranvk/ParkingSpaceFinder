@@ -1,0 +1,62 @@
+<nav class="navbar navbar-expand-lg bg-primary  " style="width: 100%;  z-index: 1000;">
+    <div class="container-fluid">
+        <a class="navbar-brand ms-lg-5 fw-bold font-awesome fs-2" routerLink="main/home"
+            style="color:  #ffffff;">Parking Space Finder</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bold text-light">
+                <button class="btn btn- ms-lg-3 me-5 text-white fw-bold border-white" routerLink="/location"
+                    style="color: #ffffff;"><i class="fa-solid fa-house"></i> Home</button>
+            </ul>
+        </div>
+    </div>
+</nav>
+<!-- Register landing page -->
+
+  <!--  Register form -->
+  <div  class="container">
+    <div class="row">
+      <div class="col-4 mt-4">
+        <!-- image -->
+        <img class="m-3" width="100%" height="500px"
+          src="https://img.freepik.com/premium-vector/car-parking-sign-parking-space-icon-parking-lot-car-parking-flat-style-vector-illustration-web-element_435184-1157.jpg"
+          alt="">
+      </div>
+      <div class="col-8 mb-3">
+        <!-- Register-form -->
+        <form [formGroup]="feedform"  (ngSubmit)="feedbacks()" class="mt-5 border px-5 mx-3 rounded shadow" >
+          <h3 class="text-primary text-center my-3">Add Feedback</h3>
+          <!-- firstname input -->
+          <div class="form-outline mb-4">
+            <textarea name="message" formControlName="message" type="text" id="form1Example1" class="form-control" placeholder="Type your valuable feedback...." rows="5" required></textarea>
+          </div>
+         
+          <div class="text-center">
+            
+            <button type="submit" class="btn btn-primary btn-block mb-2">Submit</button>
+            
+          </div>
+        </form>
+
+          <div class="container mt-5 review-container">
+            <h3 class="text-primary text-center mb-4">User Reviews</h3>
+            <div class="row">
+                <div class="col-10 mx-auto">
+                <div *ngFor="let review of feed" class="card mb-3">
+                    <div class="card-body">
+                    <h5 class="card-title">{{ review.user_name }}</h5>
+                    <p class="card-text">{{ review.message }}</p>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+      </div>
+    </div>
+  </div>
+
+

@@ -1,5 +1,5 @@
 from django.urls import path , include
-from api.views import *
+from .views import *
 from rest_framework.authtoken.views import ObtainAuthToken
 from django.conf import settings
 from django.conf.urls.static import static
@@ -36,25 +36,33 @@ urlpatterns = [
     path("register/user", UserRegistration.as_view(), name='user-register'), #completed
     path("register/admin", AdminRegistration.as_view(), name='admin-register'), #completed
     path('profile/<int:pk>/', UserUpdateProfile.as_view(), name='user-update_profile'),
-    path('profile/<int:pk>/', AdminUpdateProfile.as_view(), name='admin-update_profile'),
+    path('profiledmin/<int:pk>/', AdminUpdateProfile.as_view(), name='admin-update_profile'),
     path('token/', CustomAuthToken.as_view(), name='api_token_auth'), #completed
     path('reserve/<int:pk>/',ReservationView.as_view(),name='reservation'),
     path('cancel-reservation/<int:pk>/', CancelReservationView.as_view(), name='cancel_reservation'),
     path('search/',ParkZoneSearchView.as_view(),name='search'),
     path('ticket/',TicketPdfView.as_view(),name='ticket'),
     path('checkout/<int:pk>/', CheckOutView.as_view(), name='checkout'),
-    path('change-password/', ChangePasswordView.as_view(), name='change-password'), #partially completed
-    path('parkzones/<int:pk>/reservations/', CurrentDayParkZoneReservationsAPIView.as_view(), name='list-reservations'),
+    path('checkin/<int:pk>/', CheckInView.as_view(), name='checkin'),
+    path('change_password/', ChangePasswordView.as_view(), name='change-password'), #partially completed
+    path('bookings/<int:pk>/reservations/', CurrentDayParkZoneReservationsAPIView.as_view(), name='list-reservations'),
     path('viewprofile/',ProfileView.as_view(),name='profile'), #completed
     path('states/',States.as_view(),name="state"),
+    path('district/',Districts.as_view(),name="state"),
+    path('location/',Locations.as_view(),name="state"),
     path('listparkzone/',ListParkzones.as_view(),name="all"), #completed
     path('reserved/',ReservedAll.as_view(),name="res"), #completed
     path('all/',ReservedAllBookings.as_view(),name="resall"), #completed
     path('slots/<int:pk>/',ReservationzoneSlotnumer.as_view(),name="ressolots"), #completed
     path('parkzone/<int:pk>/',ParkzonesView.as_view(),name="park"), #completed
-
-    path('',include(router.urls))
+    path('bookings/<int:pk>/',reserved.as_view(),name="book"), #completed
+    path('userzones/',UserParkzones.as_view(),name="userzone"), #completed
+    path('feed/<int:pk>/',FeedView.as_view(),name='f'),
+    path('payment/<int:pk>/',PaymentView.as_view(),name='pay'),
+    path('specific/<int:pk>/',reservedSpecific.as_view(),name='spec'),
+    path('',include(router.urls)) 
 ]
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

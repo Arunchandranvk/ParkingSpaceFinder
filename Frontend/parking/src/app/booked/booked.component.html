@@ -17,7 +17,7 @@
 
 
 <h1 class="fw-normal  text-center " style="letter-spacing: 1px;font-family: 'Times New Roman', Times, serif;font-weight: bold;" >
-  My Bookings
+  Current Bookings
 </h1>
 
     
@@ -33,8 +33,10 @@
            <th >End Time</th>
            <!-- <th >Checkout</th> -->
            <th >Price</th>
-           <th >Check out </th>
-           <th  ></th>
+           <th >Check In</th>
+           <th >Check out</th>
+           <th ></th>
+           <th ></th>
            </tr>
            <!-- {% for i in data %} -->
            <tr   *ngFor="let i of resall"> 
@@ -49,11 +51,19 @@
            <td  >{{i.price}}</td>
        
            <td >
+            <a *ngIf="!i.checkin" class="btn btn-warning btn-block"   (click)="checkins(i.id)">CheckIn</a>
+            <a *ngIf="i.checkin" class="bg bg-success"   (click)="checkins(i.id)" style="text-decoration: none;border-radius: 0.75rem;">CheckIn</a>
+          </td>
+           <td >
             <a *ngIf="!i.checkout" class="btn btn-warning btn-block"   (click)="checkouts(i.id)">Checkout</a>
             <a *ngIf="i.checkout" class="bg bg-success"   (click)="checkouts(i.id)" style="text-decoration: none;border-radius: 0.75rem;">Checkouted</a>
           </td>
            <td >
-            <a *ngIf="!i.checkout"  class="btn btn-danger btn-block" (click)="cancelreserve(i.id)">Cancel</a>
+            <a [routerLink]="'/payment/' + i.id"  *ngIf="!i.is_paid" class="btn btn-success btn-block" >Pay</a>
+            <p  *ngIf="i.is_paid" class=" bg-success " style="border-radius: 0.75rem;">Paid</p>
+          </td>
+           <td >
+            <a *ngIf="!i.is_paid"  class="btn btn-danger btn-block" (click)="cancelreserve(i.id)">Cancel</a>
           </td>
            </tr>
           </table>

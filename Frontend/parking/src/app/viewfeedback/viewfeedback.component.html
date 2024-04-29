@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg bg-primary  " style="width: 100%;  z-index: 1000;">
+  <div class="container-fluid">
+    <a class="navbar-brand ms-lg-5 fw-bold font-awesome fs-2" routerLink="main/home" style="color:  #ffffff;">Parking
+      Space Finder</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bold text-light">
+        <button class="btn btn- ms-lg-3 me-5 text-white fw-bold border-white" routerLink="/listparkzone" style="color: #ffffff;">
+           Back</button>
+      </ul>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bold text-light">
+        <button class="btn btn- ms-lg-3 me-5 text-white fw-bold border-white" routerLink="/table" style="color: #ffffff;"><i
+            class="fa-solid fa-house"></i> Home</button>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-8 offset-md-2">
+      <h1 class="text-center mb-4" style="font-weight: bold; color: #333;">Feedbacks</h1>
+      <div *ngFor="let feedback of feed" class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title" style="color: #333; font-size: 1.5rem; font-weight: bold;">User: {{ feedback.user_name }}</h5>
+          <p class="card-text" style="color: #555; font-size: 1.2rem;">Message: {{ feedback.message }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

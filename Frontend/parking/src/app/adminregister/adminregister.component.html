@@ -1,5 +1,4 @@
 <nav class="navbar navbar-expand-lg bg-primary  " style="width: 100%;  z-index: 1000;">
-  <a href="profile" > <img class="rounded-circle  mt-1" src="assets/demo.png" alt=""  height="60px"  width="60px" style="background-color: white;margin-left: 5px;"></a>
    <div class="container-fluid">
      <a class="navbar-brand ms-lg-5 fw-bold font-awesome fs-2" routerLink="main/home" style="color:  ffffff;">Parking
        Space Finder</a>
@@ -9,14 +8,15 @@
      </button>
      <div class="collapse navbar-collapse " id="navbarSupportedContent">
        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bold text-light">
-         <button class="btn btn- ms-lg-3 me-5 text-white fw-bold border-white" routerLink="/register" style="color: ffffff;">
-            User Register</button>
+         <button class="btn btn- ms-lg-3 me-5 text-white fw-bold border-white" routerLink="/register" style="color: ffffff;"><i
+             class="fa-solid fa-house"></i> User Register</button>
        </ul>
      </div>
    </div>
  </nav>
+
   <!--  Register form -->
-  <div class="container">
+  <div  class="container ">
     <div class="row">
       <div class="col-6">
         <!-- image -->
@@ -26,63 +26,69 @@
       </div>
       <div class="col-6 mb-3">
         <!-- Register-form -->
-        <form class="mt-5 border px-5 mx-3 rounded shadow">
+        <form [formGroup]="regform" (ngSubmit)="register()" class="mt-5 border px-5 mx-3 rounded shadow" enctype="multipart/form-data">
           <h3 class="text-primary text-center my-3">Register Here</h3>
           <!-- firstname input -->
           <div class="form-outline mb-4">
             <label class="form-label" for="form1Example1">First Name</label>
-            <input name="first_name" formControlName="first_name" type="text" id="form1Example1" class="form-control" />
-            
+            <input name="first_name" formControlName="first_name" type="text" id="form1Example1" class="form-control"  />
+           
           </div>
           <!-- last Name input -->
           <div class="form-outline mb-4">
-            <label class="form-label" for="form1Example1">Last Name</label>
-            <input name="last_name" formControlName="last_name" type="text" id="form1Example1" class="form-control" />
-            
+            <label class="form-label" for="form1Example2">Last Name</label>
+            <input name="last_name" formControlName="last_name" type="text" id="form1Example2" class="form-control" />
+          
           </div>
 
           <!-- Email input -->
         <div class="form-outline mb-4">
-            <label class="form-label" for="form1Example1">Email</label>
-            <input name="email" formControlName="email" type="text" id="form1Example1" class="form-control" />
-            
+            <label class="form-label" for="form1Example3">Email</label>
+            <input name="email" formControlName="email" type="text" id="form1Example3" class="form-control" />
+           
           </div>
 
            <!-- username  -->
         <div class="form-outline mb-4">
-            <label class="form-label" for="form1Example1">Username</label>
-            <input name="username" formControlName="username" type="text" id="form1Example1" class="form-control" />
+            <label class="form-label" for="form1Example4">Username</label>
+            <input name="username" formControlName="username" type="text" id="form1Example4" class="form-control" />
             
           </div>
   
           <!-- Password input -->
           <div class="form-outline mb-4">
-            <label class="form-label" for="form1Example2">Password</label>
-            <input name="password" formControlName="password" type="password" id="form1Example2" class="form-control" />
+            <label class="form-label" for="form1Example5">Password</label>
+            <input name="password" formControlName="password" type="password" id="form1Example5" class="form-control" />
            
   
           </div>
 
           <!-- Dob  -->
         <div class="form-outline mb-4">
-            <label class="form-label" for="form1Example1">DOB</label>
-            <input name="dob" formControlName="dob" type="date" id="form1Example1" class="form-control" />
+            <label class="form-label" for="form1Example6">DOB</label>
+            <input name="dob" formControlName="dob" type="date" id="form1Example6" class="form-control" />
             
           </div>
 
            <!-- Gender -->
         <div class="form-outline mb-4">
-            <label class="form-label" for="form1Example1">Gender</label>
+            <label class="form-label">Gender</label>
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                <label class="form-check-label" for="flexRadioDefault1">
+                <input class="form-check-input" type="radio" name="gender" formControlName="gender" id="1" value="Male">
+                <label class="form-check-label" for="1">
                   Male
                 </label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                <label class="form-check-label" for="flexRadioDefault2">
+                <input class="form-check-input" type="radio" name="gender" formControlName="gender"  id="2" value="Female" checked>
+                <label class="form-check-label" for="2">
                   Female
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="gender" formControlName="gender"  id="3" value="Others">
+                <label class="form-check-label" for="3">
+                  Others
                 </label>
               </div>
             
@@ -90,17 +96,22 @@
 
            <!-- address  -->
         <div class="form-outline mb-4">
-            <label class="form-label" for="form1Example1">Address</label>
-            <input name="address" formControlName="address" type="text" id="form1Example1" class="form-control" />
+            <label class="form-label" for="form1Example8">Address</label>
+            <input name="address" formControlName="address" type="text" id="form1Example8" class="form-control" />
 
           </div>
 
            <!-- phone number  -->
-        <div class="form-outline mb-4">
-            <label class="form-label" for="form1Example1">Phone Number</label>
-            <input name="phone_number" formControlName="phone_number" type="text" id="form1Example1" class="form-control" />
-           
+         <div class="form-outline mb-4">
+            <label class="form-label" for="form1Example9">Phone Number</label>
+            <input name="phone_number" formControlName="phone_number" type="text" id="form1Example9" class="form-control" />
+     
           </div>
+         <!-- <div class="form-outline mb-4">
+            <label class="form-label" for="form1Example10">Profile Image</label>
+            <input name="profile_image" formControlName="profile_image" type="file" id="form1Example10" class="form-control" />
+     
+          </div> -->
   
   
   
@@ -109,13 +120,13 @@
             <div class="col d-flex">
               <!-- Checkbox -->
               <div class="form-check">
-                <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
-                <label class="form-check-label" for="form1Example3"> Remember me </label>
+                <input class="form-check-input" type="checkbox" value="" id="form1Example11" checked />
+                <label class="form-check-label" for="form1Example11"> Remember me </label>
               </div>
             </div>
           </div>
           <div class="text-center">
-            <!-- Submit button -->
+            
             <button type="submit" class="btn btn-primary btn-block mb-2">Sign up</button>
             <p>Already have an Account? <a routerLink="/login"> Please Login </a></p>
           </div>
@@ -123,6 +134,4 @@
       </div>
     </div>
   </div>
-  
-
 <app-footer></app-footer>

@@ -18,6 +18,7 @@ from django.http import Http404
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
+from .models import *
 # Create your views here.
 
 
@@ -29,6 +30,7 @@ class CustomAuthToken(ObtainAuthToken):
         token, created = Token.objects.get_or_create(user=user)
         users=User.objects.get(id=user.id)
         super=users.is_superuser
+        
         
         return Response(data={'status':1,'token': token.key,
             'is_superuser':super
@@ -158,7 +160,7 @@ class ReservationView(APIView):
             start_time = serializer.validated_data['start_time']
             end_time = serializer.validated_data['end_time']
             slot_number =  serializer.validated_data['slot_number']
-            parking_zone_id = pk
+            zone_id = pk
             print(slot_number)
             if start_time >= end_time:
                 return Response({'message': 'End time must be after start time'}, status=status.HTTP_400_BAD_REQUEST)
@@ -166,7 +168,7 @@ class ReservationView(APIView):
             if start_time <= timezone.now():
                 return Response({'message': 'Reservation start time must be in the future'}, status=status.HTTP_400_BAD_REQUEST)
 
-            parking_zone = get_object_or_404(ParkZone, id=parking_zone_id)
+            parking_zone = get_object_or_404(ParkZone, id=zone_id)
             if parking_zone.vacant_slots == 0:
                 return Response({'message': 'Parking Zone Full!'}, status=status.HTTP_400_BAD_REQUEST)
 
@@ -184,10 +186,11 @@ class ReservationView(APIView):
 
             with transaction.atomic():
                 reservation = serializer.save(user=request.user, zone=parking_zone, ticket_code=ticket_code, price=total_price , slot_number=slot_number)
-                slot=ReservedZones.objects.create(zone=parking_zone,slot=slot_number)
+                
                 parking_zone.occupied_slots += 1
                 parking_zone.vacant_slots = parking_zone.total_slots - parking_zone.occupied_slots
                 parking_zone.save()
+                slot=ReservedZones.objects.create(zone=parking_zone,slot=slot_number,ReservedSlot=reservation,date=start_time)
 
             return Response({'message': 'Successfully Booked', 'total_price': total_price}, status=status.HTTP_201_CREATED)
         print(serializer.errors)
@@ -221,18 +224,18 @@ class CancelReservationView(APIView):
         
 class ParkZoneSearchView(APIView):
     def get(self, request):
-        state_id = request.query_params.get('state')
-        district_id = request.query_params.get('district')
+        # state_id = request.query_params.get('state')
+        # district_id = request.query_params.get('district')
         location_id = request.query_params.get('location')
         vehicle_type = request.query_params.get('vehicle_type')
 
-        if not all([state_id, district_id, location_id, vehicle_type]):
+        if not all([ location_id, vehicle_type]):
             return Response({'error': 'Please provide all search parameters.'}, status=400)
 
         try:
             zones = ParkZone.objects.filter(
-                state_id=state_id,
-                district_id=district_id,
+                # state_id=state_id,
+                # district_id=district_id,
                 location_id=location_id,
                 vehicle_type=vehicle_type
             )
@@ -276,10 +279,12 @@ class CheckOutView(APIView):
     def post(self, request, **kwargs):
         pk=kwargs.get('pk')
         try:
+            
             print(request.user.id)
             print(pk)
-            reservation = ReservedSlots.objects.get(user=request.user.id, checkout=False, pk=pk)
-            reserveslots = ReservedZones.objects.get(zone=reservation.zone)
+            reservation = ReservedSlots.objects.get(checkout=False, id=pk)
+            print(reservation.id)
+            reserveslots = ReservedZones.objects.get(zone=reservation.zone,ReservedSlot=reservation.id)
             print(reservation)
             reservation.checkout = True
             reservation.save()
@@ -306,42 +311,55 @@ class CheckInView(APIView):
         try:
             print(request.user.id)
             print(pk)
-            reservation = ReservedSlots.objects.get(user=request.user.id, checkout=False, pk=pk)
-            print(reservation)
-            reservation.checkout = True
-            reservation.save()
-
-            parking_zone = reservation.zone
-            parking_zone.occupied_slots -= 1
-
-            parking_zone.vacant_slots += 1
-            parking_zone.save()
-             
-            reserveslots.is_reserved = False
-            reserveslots.save()
+            reservations = ReservedSlots.objects.get(user=request.user.id, checkin=False, pk=pk)
+            print(reservations)
+            reservations.checkin = True
+            reservations.save()
 
             return Response({'message': 'Successfully Checked Out'})
         except ReservedSlots.DoesNotExist:
             return Response({'message': f'No Parking reservation exists for {request.user} with ID {pk}'}, status=status.HTTP_404_NOT_FOUND)
 
+from django.contrib.auth import update_session_auth_hash
+
+# class ChangePasswordView(APIView):
+#     # permission_classes = [permissions.IsAuthenticated]
+#     def post(self, request):
+#         user = request.user
+#         serializer = PasswordChangeSerializer(data=request.data)
+
+#         if serializer.is_valid():
+#             old_password = serializer.data.get("old_password")
+#             new_password = serializer.data.get("new_password")
+
+#             if not user.check_password(old_password):
+#                 return Response({"old_password": ["Wrong password."]},status=status.HTTP_400_BAD_REQUEST)
+
+#             user.set_password(new_password)
+#             user.save()
+#             update_session_auth_hash(request, user)
+#             return Response({"message": "Password updated successfully."},status=status.HTTP_200_OK)
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
 class ChangePasswordView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request):
-        serializer = ChangePasswordSerializer(data=request.data)
+        serializer = PasswordChangeSerializer(data=request.data)
         if serializer.is_valid():
             if not request.user.check_password(serializer.data.get('old_password')):
                 return Response({'old_password': ['Wrong password.']}, status=status.HTTP_400_BAD_REQUEST)
             request.user.set_password(serializer.data.get('new_password'))
             request.user.save()
-            return Response({'message': 'Password changed successfully.'}, status=status.HTTP_200_OK)
+            return Response({'message': 'Password changed successfully'}, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 
 class CurrentDayParkZoneReservationsAPIView(APIView):
     authentication_classes = [BasicAuthentication, TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
-    def get(self, request, pk):
+    def get(self, request, **kwargs):
+        pk=kwargs.get('pk')
         owner = request.user
         current_date = datetime.now().date()
         park_zone = get_object_or_404(ParkZone, pk=pk, owner=owner)
@@ -349,17 +367,30 @@ class CurrentDayParkZoneReservationsAPIView(APIView):
         serializer = ReservationSerializer(reservations, many=True)
         return Response(serializer.data)
 
+class Locations(APIView):
+    def get(self,request):
+        data=Location.objects.all()
+        ser=LocationSer(data,many=True)
+        return Response(ser.data)
 
 class States(APIView):
     def get(self,request):
         data=State.objects.all()
         ser=StateSer(data,many=True)
-        return Response(data={'status':1,'data':ser.data})
+        return Response(ser.data)
+
+
+
+class Districts(APIView):
+    def get(self,request):
+        data=District.objects.all()
+        ser=DistrictSer(data,many=True)
+        return Response(ser.data)
 
 class ReservedAll(APIView):
     def get(self,request):
         user=request.user.id
-        data=ReservedSlots.objects.filter(user=user,checkout=False)
+        data=ReservedSlots.objects.filter(user=user,is_paid=False)
         print(data)
         ser=ReservationSer(data,many=True)
         return Response(ser.data)
@@ -389,7 +420,96 @@ class ReservationzoneSlotnumer(APIView):
     def get(self,request,**kwargs):
         id=kwargs.get('pk')
         print(id)
-        data=ReservedZones.objects.filter(zone=id)
+        data=ReservedZones.objects.filter(zone=id,is_reserved=True)
         print(data)
         ser=SlotNumberSer(data,many=True)
         return Response(ser.data)
+# def get(self, request, **kwargs):
+#         id = kwargs.get('pk')
+#         print(id)
+        
+#         # Get the current date
+#         current_date = timezone.now().date()
+#         print("Current Date:", current_date)
+
+#         # Filter reserved zones by zone ID and current date
+#         data = ReservedZones.objects.filter(zone=id, is_reserved=True, date__date=current_date)
+#         print("Filtered Data:", data)
+        
+#         # Serialize the filtered data
+#         ser = SlotNumberSer(data, many=True)
+        
+#         return Response(ser.data)
+
+
+class reserved(APIView):
+    def get(self,request,**kwargs):
+        id=kwargs.get('pk')
+        print(id)
+        data=ReservedSlots.objects.filter(zone=id)
+        # user=ParkZone.objects.filter(user=request.user)
+        ser=ReservationSer(data,many=True)
+        return Response(ser.data)        
+
+class reservedSpecific(APIView):
+    def get(self,request,**kwargs):
+        id=kwargs.get('pk')
+        print(id)
+        data=ReservedSlots.objects.get(id=id)
+        print(data.price)
+        # user=ParkZone.objects.filter(user=request.user)
+        ser=ReservationSer(data)
+        return Response(ser.data)        
+
+class UserParkzones(APIView):
+    def get(self,request,**kwargs):
+        user=ParkZone.objects.filter(owner=request.user)
+        ser=ParkSerializer(user,many=True)
+        return Response(ser.data)        
+    
+class FeedView(APIView):
+    def post(self, request, **kwargs):
+        data = request.data
+        serializer = FeedSer(data=data)
+        if serializer.is_valid():
+            user = request.user
+            print(user)
+            zone_pk = kwargs.get('pk')
+            try:
+                zone = ParkZone.objects.get(pk=zone_pk)
+            except ParkZone.DoesNotExist:
+                return Response({"error": "Zone does not exist"}, status=status.HTTP_404_NOT_FOUND)
+            serializer.save(user=user, zone=zone)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request, **kwargs):
+        pk = kwargs.get('pk')
+        feeds = Feedback.objects.filter(zone=pk)  # Retrieve feeds for the specified zone
+        serializer = FeedSerGet(feeds, many=True)
+        return Response(serializer.data)
+    
+
+class PaymentView(APIView):
+    def post(self, request, **kwargs):
+        try:
+            pk = kwargs.get('pk')
+            user_id = request.user.id
+            user_instance = User.objects.get(pk=user_id)  # Retrieve User instance
+            ser = PaymentSer(data=request.data)
+            if ser.is_valid():
+                try:
+                    slot=ReservedSlots.objects.get(pk=pk)
+                    slot.is_paid= True
+                    slot.save()
+                except ReservedSlots.DoesNotExist:
+                     return Response({"error": "slot does not exist"}, status=status.HTTP_404_NOT_FOUND)
+
+                ser.save(user=user_instance, slot=slot ,amount=slot.price)  # Assign User instance
+                return Response(ser.data, status=status.HTTP_201_CREATED)
+            print(ser.errors)
+            return Response(ser.errors, status=status.HTTP_400_BAD_REQUEST)
+        except Exception as e:
+            print(e)
+            return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
+

@@ -1,0 +1,67 @@
+<nav class="navbar navbar-expand-lg bg-primary  " style="width: 100%;  z-index: 1000;">
+    <div class="container-fluid">
+        <a class="navbar-brand ms-lg-5 fw-bold font-awesome fs-2" routerLink="main/home"
+            style="color:  #ffffff;">Parking Space Finder</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bold text-light">
+                <button class="btn btn- ms-lg-3 me-5 text-white fw-bold border-white" routerLink="/location"
+                    style="color: #ffffff;"><i class="fa-solid fa-house"></i> Home</button>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="coupon mt-3" style="width: 500px;">
+    <div class="left">
+      <div>Pay Slip</div>
+    </div>
+    <div class="center ">
+      <div class="screen flex-center">
+        <div class="popup flex p-lg">
+          <div class="close-btn pointer flex-center p-sm">
+            <i class="ai-cross"></i>
+          </div>
+          
+          <!-- TICKET VIEW -->
+          
+          <div class="ticket-container flex-fill mt-3 ml-3" *ngFor="let i of resall " style="height:200px;text-align: left;">
+            <div class="ticket-header">
+              <i class="ai-ticket-fill size-xl f-main-color"></i>
+              <span class="title">Ticket Details</span>
+            </div>
+            <div class="ticket-body">
+              <div class="ticket-info">
+                <div class="ticket-property">
+                  <strong>Parkzone:</strong> <span>{{ i.zone }}</span>
+                </div>
+                <div class="ticket-property">
+                  <strong>Slot:</strong> <span>{{ i.slot_number }}</span>
+                </div>
+                <div class="ticket-property">
+                  <strong>Vehicle:</strong> <span>{{ i.vehicle_numberplate }}</span>
+                </div>
+                <div class="ticket-property">
+                  <strong>Ticket Code:</strong> <span>{{ i.ticket_code }}</span>
+                </div>
+                <div class="ticket-property">
+                  <strong>Booking Date:</strong> <span>{{ i.start_time }}</span>
+                </div>
+                <div class="ticket-property">
+                  <strong>Price:</strong> <span>{{ i.price }}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <div>87878521112</div>
+    </div>
+  </div>
+  

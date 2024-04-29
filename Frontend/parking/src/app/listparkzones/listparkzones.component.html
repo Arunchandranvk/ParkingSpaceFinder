@@ -15,33 +15,36 @@
     </div>
 </nav>
 
-<h1 class="text-center text-white" style="letter-spacing: 1px; font-family: 'Times New Roman', Times, serif; font-weight: bold;">Parkzones</h1>
+<h1 class="text-center mt-3" style="letter-spacing: 1px; font-weight: bold;">Parkzones</h1>
 
-<div class="row ">
-    <div class="col-md-3 mt-2"  *ngFor="let i of zones">
-        <div class="card mt-4" >
+<div class="row justify-content-center" style="padding: 20px;">
+    <div *ngFor="let zone of zones" class="col-md-4">
+        <div class="card mt-4">
             <div class="card-body">
+                <a [routerLink]="'/viewbooking/' + zone.id" style="text-decoration: none;">
                 <div class="text-center">
                     <img class="rounded-circle" src="assets/4.jpeg" alt="Profile Image" style="height: 200px; width: 200px;">
                 </div>
-                <div class="text-center mt-3"  > 
-                    <h5 class="card-title">{{ i.name }} </h5>
-                    <p class="card-text">{{ i.owner }}</p>
+                <div class="text-center mt-3">
+                    <h5 class="card-title" style="color: black;">{{ zone.name }}</h5>
+                    <p class="card-text">{{ zone.owner }}</p>
                 </div>
-                <ul class="list-group list-group-flush" >
-                    <li class="list-group-item">Total Slots: {{ i.total_slots }}</li>
-                    <li class="list-group-item">Vaccant Slots: {{ i.vacant_slots }}</li>
-                    <li class="list-group-item">Occupied Slots: {{ i.occupied_slots }}</li>
-                    <li class="list-group-item">Price: {{ i.price }}</li>
-                    <li class="list-group-item">State: {{ i.state }}</li>
-                    <li class="list-group-item">District: {{ i.district }}</li>
-                    <li class="list-group-item">Location: {{ i.Location }}</li>
-                    <li class="list-group-item">Vehicle Type: {{ i.vehicle_type }}</li>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Total Slots:</strong> {{ zone.total_slots }}</li>
+                    <li class="list-group-item"><strong>Vacant Slots:</strong> {{ zone.vacant_slots }}</li>
+                    <li class="list-group-item"><strong>Occupied Slots:</strong> {{ zone.occupied_slots }}</li>
+                    <li class="list-group-item"><strong>Price:</strong> {{ zone.price }}</li>
+                    <li class="list-group-item"><strong>State:</strong> {{ zone.state_name }}</li>
+                    <li class="list-group-item"><strong>District:</strong> {{ zone.district_name }}</li>
+                    <li class="list-group-item"><strong>Location:</strong> {{ zone.location_name }}</li>
+                    <li class="list-group-item"><strong>Vehicle Type:</strong> {{ zone.vehicle_type }}</li>
                 </ul>
+                <div class="text-center mt-3">
+                    <button class="btn btn-success " [routerLink]="'/updatezone/' + zone.id" style="margin-right: 5px;">Update</button>
+                    <button class="btn btn-primary" [routerLink]="'/viewfeedback/' + zone.id">Feedbacks</button>
+                </div>
+            </a>
             </div>
         </div>
     </div>
 </div>
-
-
-<!-- <app-footer></app-footer> -->

@@ -2,25 +2,73 @@ import { Component } from '@angular/core';
 import { FormBuilder,Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
-
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-addparkzones',
   templateUrl: './addparkzones.component.html',
   styleUrls: ['./addparkzones.component.css']
 })
-export class AddparkzonesComponent {
+export class AddparkzonesComponent  {
 
-  state:any;
+  states: any;
+  loc: any;
+  dist:any;
 
-  constructor(private fb:FormBuilder ,private ds:ApiService,private ar:ActivatedRoute,private rt:Router){
-    this.ds.state().then(res=>res.json()).then(data=>this.state=data)
-    console.log(this.state)
+
+  constructor(private fb:FormBuilder ,private ds:ApiService,private ar:ActivatedRoute,private rt:Router,private http:HttpClient){
+    
   }
-  
+
+   ngOnInit() {
+    this.fetchStates();
+    this.fetchlocation();
+    this.fetchdistrict();
+  }
+
+  fetchStates() {
+    this.http.get<any[]>('http://127.0.0.1:8000/states/')
+      .subscribe(
+        data => {
+          this.states = data;
+        },
+        error => {
+          console.error('Error fetching states:', error);
+        }
+      );
+  }
+
+   
+
+  fetchlocation() {
+    this.http.get<any[]>('http://127.0.0.1:8000/location/')
+      .subscribe(
+        data => {
+          this.loc = data;
+        },
+        error => {
+          console.error('Error fetching states:', error);
+        }
+      );
+    }
 
 
-  addparkzoneform = this.fb.group({
+  fetchdistrict() {
+    this.http.get<any[]>('http://127.0.0.1:8000/district/')
+      .subscribe(
+        data => {
+          this.dist = data;
+        },
+        error => {
+          console.error('Error fetching states:', error);
+        }
+      );
+    }
+
+
+
+
+addparkzoneform = this.fb.group({
     name:'',
     total_slots:'',
     vacant_slots:'',
@@ -32,8 +80,7 @@ export class AddparkzonesComponent {
     district:''
   })
 
-
-  addzone(){
+addzone(){
     this.ds.addparkzone(this.addparkzoneform.value).then(res=>res.json()).then(data=>{
       console.log(data)
       if(this.addparkzoneform.valid){

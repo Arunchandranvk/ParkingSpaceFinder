@@ -1,0 +1,125 @@
+<nav class="navbar navbar-expand-lg bg-primary  " style="width: 100%;  z-index: 1000;">
+    <div class="container-fluid">
+        <a class="navbar-brand ms-lg-5 fw-bold font-awesome fs-2" routerLink="main/home"
+            style="color:  #ffffff;">Parking Space Finder</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse " id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-bold text-light">
+                <button class="btn btn- ms-lg-3 me-5 text-white fw-bold border-white" routerLink="/location"
+                    style="color: #ffffff;"><i class="fa-solid fa-house"></i> Home</button>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+<div class="screen flex-center">
+  <form class="popup flex p-lg" [formGroup]="paymentForm" (ngSubmit)="payments()">
+    <div class="close-btn pointer flex-center p-sm">
+      <i class="ai-cross"></i>
+    </div>
+    
+    <!-- CARD FORM -->
+    <div class="flex-fill flex-vertical">
+      <div class="header flex-between flex-vertical-center">
+        <div class="flex-vertical-center">
+          <i class="ai-bitcoin-fill size-xl pr-sm f-main-color"></i>
+          <span class="title">
+            <strong>AceCoin</strong><span>Pay</span>
+          </span>
+        </div>
+        <div class="timer" data-id="timer">
+          <span>0</span><span>5</span>
+          <em>:</em>
+          <span>0</span><span>0</span>
+        </div>
+      </div>
+      <div class="card-data flex-fill flex-vertical">
+        <!-- Card Number -->
+        <div class="flex-between flex-vertical-center">
+          <div class="card-property-title">
+            <strong>Card Number</strong>
+            <span>Enter 16-digit card number on the card</span>
+          </div>
+          <!-- <div class="f-main-color pointer"><i class="ai-pencil"></i> Edit</div> -->
+        </div>
+        <!-- Card Field -->
+        <div class="flex">
+          <div class="card-number flex-vertical-center flex-fill">
+            <div class="card-number-field " >
+              <!-- Input fields for card number -->
+              <input formControlName="cardnumber" style="width:410px;"  type="number" placeholder="0000-000-0000-0000-0000-0000">
+              <!-- -
+              <input formControlName="cardnumber" class="numbers" type="number" placeholder="0000">
+              -
+              <input formControlName="cardnumber" class="numbers" type="number" placeholder="0000">
+              -
+              <input formControlName="cardnumber" class="numbers" type="number" placeholder="0000" data-bound="carddigits_mock" data-def="0000"> -->
+            </div>
+            <i class="ai-circle-check-fill size-lg f-main-color"></i>
+          </div>
+        </div>
+        <!-- Expiry Date -->
+        <div class="flex-between">
+          <div class="card-property-title">
+            <strong>Expiry Date</strong>
+            <span>Enter the expiration date of the card</span>
+          </div>
+          <div class="card-property-value flex-vertical-center">
+            <div class="input-container ">
+              <!-- Input field for expiration month -->
+              <input formControlName="expirationDate" class="numbers ml-2" style="width:250px;" data-bound="mm_mock" data-def="00" type="text" min="1" max="12" step="1" placeholder="MM/YY">
+            </div>
+            <!-- <span class="m-md">/</span>
+            <div class="input-container half-width">
+      
+              <input formControlName="expirationDate" class="numbers" data-bound="yy_mock" data-def="01" type="number" min="23" max="99" step="1" placeholder="YY">
+            </div> -->
+          </div>
+        </div>
+        <!-- CCV Number -->
+        <div class="flex-between">
+          <div class="card-property-title">
+            <strong>CVC Number</strong>
+            <span>Enter card verification code from the back of the card</span>
+          </div>
+          <div class="card-property-value">
+            <div class="input-container">
+              <!-- Input field for CVV -->
+              <input id="cvc" formControlName="cvv" type="number" placeholder="CVV">
+              <i id="cvc_toggler" data-target="cvc" class="ai-eye-open pointer"></i>
+            </div>
+          </div>
+        </div>
+        <!-- Name -->
+        <div class="flex-between">
+          <div class="card-property-title">
+            <strong>Cardholder Name</strong>
+            <span>Enter cardholder's name</span>
+          </div>
+          <div class="card-property-value">
+            <div class="input-container">
+              <!-- Input field for cardholder name -->
+              <input id="name" formControlName="cardHolderName" data-bound="name_mock" data-def="Mr. Cardholder" type="text" class="uppercase" placeholder="CARDHOLDER NAME">
+              <i class="ai-person"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="action flex-center">
+        <button type="submit" class="b-main-color pointer">Pay Now</button>
+      </div>
+    </div>
+    <!-- SIDEBAR -->
+    <div class="sidebar flex-vertical">
+      <!-- Purchase section and total section -->
+      <!-- Your existing HTML for purchase section and total section goes here -->
+    </div>
+  </form>
+</div>
+
+
+

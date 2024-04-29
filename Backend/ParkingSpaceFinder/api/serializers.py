@@ -3,6 +3,7 @@ from datetime import datetime
 from api.models import *
 from django.core.validators import RegexValidator
 from django.shortcuts import get_object_or_404
+from .models import Feedback
 
 
 class CustomDateFormatField(serializers.DateField):
@@ -19,7 +20,7 @@ class AdminSerializers(serializers.ModelSerializer):
         fields = ["first_name", "last_name", "email", "username", "password", "dob", "gender", "address", "phone_number"]
 
     def create(self, validated_data):
-        validated_data["is_staff"] = True
+        validated_data["is_superuser"] = True
         user = User.objects.create_user(**validated_data)
         return user
 
@@ -57,6 +58,8 @@ class ParkZoneSerializer(serializers.ModelSerializer):
         model = ParkZone
         exclude = ["owner",]
 
+    
+
 class ParkSerializer(serializers.ModelSerializer):
     state_name = serializers.ReadOnlyField(source='state.name')
     district_name = serializers.ReadOnlyField(source='district.name')
@@ -64,7 +67,8 @@ class ParkSerializer(serializers.ModelSerializer):
     class Meta:
         model = ParkZone
         exclude =["owner"]
-
+    
+    
 
 class ReservationSerializer(serializers.ModelSerializer):
     # VEHICLE_CHOICES = (
@@ -100,20 +104,18 @@ class ReservationSer(serializers.ModelSerializer):
 
 
 
-class ChangePasswordSerializer(serializers.Serializer):
+class PasswordChangeSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)
-    new_password = serializers.CharField(required=True)
-    confirm_password = serializers.CharField(required=True)
-
-    def validate(self, data):
-        if data.get('new_password') != data.get('confirm_password'):
-            raise serializers.ValidationError("The new passwords do not match.")
-        return data
+    new_password = serializers.CharField(required=True) 
+    confirm_password = serializers.CharField(required=True) 
     
 class ParkZoneSearchSerializer(serializers.ModelSerializer):
+    state_name = serializers.ReadOnlyField(source='state.name')
+    district_name = serializers.ReadOnlyField(source='district.name')
+    location_name = serializers.ReadOnlyField(source='location.name')
     class Meta:
         model = ParkZone
-        fields = ['name', 'price', 'location', 'vehicle_type', 'district', 'state']
+        fields = ['name', 'price', 'location_name', 'vehicle_type','state_name','district_name']
 
 
 class StateSer(serializers.ModelSerializer):
@@ -121,7 +123,35 @@ class StateSer(serializers.ModelSerializer):
         model = State
         fields =['name' ]
 
+class LocationSer(serializers.ModelSerializer):
+    class Meta:
+        model = Location
+        fields =['name' ]
+
+class DistrictSer(serializers.ModelSerializer):
+    class Meta:
+        model = District
+        fields =['name' ]
+
 class SlotNumberSer(serializers.ModelSerializer):
     class Meta:
         model = ReservedZones
-        fields =['slot']
+        fields =['slot','date']
+
+class FeedSer(serializers.ModelSerializer):
+    class Meta:
+        model = Feedback
+        fields =['message']
+
+class FeedSerGet(serializers.ModelSerializer):
+    user_name = serializers.ReadOnlyField(source='user.username')
+
+    class Meta:
+        model = Feedback
+        fields =['message','user_name','zone']
+
+class PaymentSer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Payment
+        fields =['cardnumber','expirationDate','cvv']

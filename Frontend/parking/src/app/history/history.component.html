@@ -34,6 +34,7 @@
            <!-- <th >Checkout</th> -->
            <th >Price</th>
            <th >Check out </th>
+           <th >Payment </th>
         
            </tr>
            <!-- {% for i in data %} -->
@@ -51,6 +52,10 @@
            <td >
             <a *ngIf="!i.checkout" class="btn btn-warning btn-block"   >Not Checkouted</a>
             <a *ngIf="i.checkout" class="btn btn-success btn-block"   >Checkouted</a>
+          </td>
+           <td >
+            <p  *ngIf="!i.is_paid" class="bg-warning " style="border-radius: 0.75rem;text-decoration:none;">Not Paid</p>
+            <p  *ngIf="i.is_paid" class=" bg-success " style="border-radius: 0.75rem;">Paid</p>
           </td>
     
            </tr>

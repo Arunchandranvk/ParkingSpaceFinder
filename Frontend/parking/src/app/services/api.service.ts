@@ -1,15 +1,31 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
+
+  private baseUrl = 'http://127.0.0.1:8000';
+
   constructor(private http:HttpClient) { }
 
   //register api function
   reg(data:any){
     return fetch('http://127.0.0.1:8000/register/user',{
+      method:'POST',
+      body: JSON.stringify(data),
+      headers:{
+        'Content-type':'application/json; charset="UTF-8" ',
+        'Authorization':`Token ${localStorage.getItem("token")}`
+      }
+    })
+  }
+
+  adminreg(data:any){
+    return fetch('http://127.0.0.1:8000/register/admin',{
       method:'POST',
       body: JSON.stringify(data),
       headers:{
@@ -53,7 +69,7 @@ export class ApiService {
   }
 
   userparkzone(){
-    return fetch('http://127.0.0.1:8000/parkzones/',{
+    return fetch('http://127.0.0.1:8000/userzones/',{
       method:'GET',
       headers:{
         'Content-type':'application/json; charset="UTF-8" ',
@@ -112,15 +128,25 @@ export class ApiService {
     })
   }
 
+  specific(pk:any){
+    return fetch(`http://127.0.0.1:8000/specific/${pk}/`,{
+      method:'GET',
+      headers:{
+        'Content-type':'application/json; charset="UTF-8" ',
+        'Authorization':`Token ${localStorage.getItem("token")}`
+      }
+    })
+  }
+
 
 
 
   changeps(data:any){
-    return fetch('http://127.0.0.1:8000/change-password/',{
+    return fetch('http://127.0.0.1:8000/change_password/',{
       method:'POST',
       body: JSON.stringify(data),
       headers:{
-        'Content-type':'application/json charset="UTF-8"',
+        'Content-type':'application/json',
         'Authorization':`Token ${localStorage.getItem("token")}`
       }
     })
@@ -137,8 +163,40 @@ export class ApiService {
     })
   }
   
+  
+  feedback(pk:any,data:any){
+    return fetch(`http://127.0.0.1:8000/feed/${pk}/`,{
+      method:'POST',
+      body: JSON.stringify(data),
+      headers:{
+        'Content-type':'application/json; charset="UTF-8" ',
+        'Authorization':`Token ${localStorage.getItem("token")}`
+      }
+    })
+  }
+  
+  feedbackview(pk:any){
+    return fetch(`http://127.0.0.1:8000/feed/${pk}/`,{
+      method:'GET',
+      headers:{
+        'Content-type':'application/json; charset="UTF-8" ',
+        'Authorization':`Token ${localStorage.getItem("token")}`
+      }
+    })
+  }
+  
   checkout(pk:any){
     return fetch(`http://127.0.0.1:8000/checkout/${pk}/`,{
+      method:'POST',
+      headers:{
+        'Content-type':'application/json; charset="UTF-8" ',
+        'Authorization':`Token ${localStorage.getItem("token")}`
+      }
+    })
+  }
+  
+  checkin(pk:any){
+    return fetch(`http://127.0.0.1:8000/checkin/${pk}/`,{
       method:'POST',
       headers:{
         'Content-type':'application/json; charset="UTF-8" ',
@@ -160,6 +218,50 @@ export class ApiService {
   slots(pk:any){
     return fetch(`http://127.0.0.1:8000/slots/${pk}/`,{
       method:'GET',
+      headers:{
+        'Content-type':'application/json; charset="UTF-8" ',
+        'Authorization':`Token ${localStorage.getItem("token")}`
+      }
+    })
+  }
+
+  searchParkZones(location: string, vehicle_type: string): Observable<any> {
+    return this.http.get<any>(`${this.baseUrl}/search/?location=${location}&vehicle_type=${vehicle_type}`);
+  }
+
+  bookings(pk:any){
+    return fetch(`http://127.0.0.1:8000/bookings/${pk}/`,{
+      method:'GET',
+      headers:{
+        'Content-type':'application/json; charset="UTF-8" ',
+        'Authorization':`Token ${localStorage.getItem("token")}`
+      }
+    })
+  }
+  currentdaybookings(pk:any){
+    return fetch(`http://127.0.0.1:8000/bookings/${pk}/reservations/`,{
+      method:'GET',
+      headers:{
+        'Content-type':'application/json; charset="UTF-8" ',
+        'Authorization':`Token ${localStorage.getItem("token")}`
+      }
+    })
+  }
+
+  // searchParkZones(state: number, district: number, location: number, vehicleType: string): Observable<any> {
+  //   const params = new HttpParams()
+  //     .set('state', state.toString())
+  //     .set('district', district.toString())
+  //     .set('location', location.toString())
+  //     .set('vehicle_type', vehicleType);
+
+  //   return this.http.get<any>(`${this.baseUrl}/search/`, { params });
+  // }
+
+  payment(pk:any,data:any){
+    return fetch(`http://127.0.0.1:8000/payment/${pk}/`,{
+      method:'POST',
+      body: JSON.stringify(data),
       headers:{
         'Content-type':'application/json; charset="UTF-8" ',
         'Authorization':`Token ${localStorage.getItem("token")}`
