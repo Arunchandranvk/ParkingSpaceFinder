@@ -75,7 +75,7 @@ const routes: Routes = [
     path:'listparkzone',component:ListparkzonesComponent
   },
   {
-    path:'updateparkzone',component:UpdateparkzonesComponent
+    path:'updateparkzone/:pk',component:UpdateparkzonesComponent
   },
   {
     path:'viewbooking/:pk',component:ViewbookingsComponent

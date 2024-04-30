@@ -139,6 +139,32 @@ def create_ticket_code():
     return ''.join(random.choices(string.ascii_lowercase + string.digits, k=6))
 
 
+class ParkzoneUpdateProfile(APIView):
+    authentication_classes = [BasicAuthentication,TokenAuthentication]
+    def get_object(self,pk):
+        try:
+            return ParkZone.objects.get(pk=pk)
+        except ParkZone.DoesNotExist:
+            raise Http404
+
+    def put(self, request, pk, format=None):
+        zone = self.get_object(pk)
+        serializer = ParkSerializer(zone , data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+    def delete(self, request, pk, *args, **kwargs):
+        try:
+            zone=ParkZone.objects.get(pk=pk)
+            zone.delete()
+            return Response({'message': 'Parkzone deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+        except :
+            return Response({'message': 'Not found'}, status=status.HTTP_404_NOT_FOUND)
+
+
+
 class ReservationView(APIView):
     authentication_classes = [BasicAuthentication, TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]

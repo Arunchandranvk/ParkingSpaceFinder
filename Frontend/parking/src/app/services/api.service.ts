@@ -184,6 +184,20 @@ export class ApiService {
   }
   
   
+  updateparkzone(pk:any,data:any){
+    return fetch(`http://127.0.0.1:8000/zoneupdate/${pk}/`,{
+      method:'PUT',
+      body: JSON.stringify(data),
+      headers:{
+        'Content-type':'application/json; charset="UTF-8" ',
+        'Authorization':`Token ${localStorage.getItem("token")}`
+      }
+    })
+  }
+  // updateParkzone(pk: number, data: any): Observable<any> {
+  //   return this.http.put<any>(`${this.baseUrl}/${pk}/`, data);
+  // }
+  
   feedback(pk:any,data:any){
     return fetch(`http://127.0.0.1:8000/feed/${pk}/`,{
       method:'POST',

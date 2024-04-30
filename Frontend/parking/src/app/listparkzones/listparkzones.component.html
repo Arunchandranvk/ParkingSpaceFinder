@@ -17,7 +17,7 @@
 
 <h1 class="text-center mt-3" style="letter-spacing: 1px; font-weight: bold;">Parkzones</h1>
 
-<div class="row justify-content-center" style="padding: 20px;">
+<div class="row justify-content-center" style="padding: 20px;width:100%;">
     <div *ngFor="let zone of zones" class="col-md-4">
         <div class="card mt-4">
             <div class="card-body">
@@ -44,7 +44,7 @@
                 </ul>
             </a>
                 <div class="text-center mt-3">
-                    <button class="btn btn-success " [routerLink]="'/updatezone/' + zone.id" style="margin-right: 5px;">Update</button>
+                    <button class="btn btn-success " [routerLink]="'/updateparkzone/' + zone.id" style="margin-right: 5px;">Update</button>
                     <button class="btn btn-primary" [routerLink]="'/viewfeedback/' + zone.id">Feedbacks</button>
                 </div>
            

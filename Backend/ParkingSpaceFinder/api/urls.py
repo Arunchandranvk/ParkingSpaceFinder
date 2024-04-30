@@ -62,6 +62,7 @@ urlpatterns = [
     path('specific/<int:pk>/',reservedSpecific.as_view(),name='spec'),
     path('paid/',Paid.as_view(),name='p'),
     path('adminviewreserve/',AdminViewReservation.as_view(),name='reserve'),
+    path('zoneupdate/<int:pk>/',ParkzoneUpdateProfile.as_view(),name='reserve'),
     path('',include(router.urls)) 
 ]
 
