@@ -42,11 +42,12 @@
                     <li class="list-group-item"><strong>Location:</strong> {{ zone.location_name }}</li>
                     <li class="list-group-item"><strong>Vehicle Type:</strong> {{ zone.vehicle_type }}</li>
                 </ul>
+            </a>
                 <div class="text-center mt-3">
                     <button class="btn btn-success " [routerLink]="'/updatezone/' + zone.id" style="margin-right: 5px;">Update</button>
                     <button class="btn btn-primary" [routerLink]="'/viewfeedback/' + zone.id">Feedbacks</button>
                 </div>
-            </a>
+           
             </div>
         </div>
     </div>
