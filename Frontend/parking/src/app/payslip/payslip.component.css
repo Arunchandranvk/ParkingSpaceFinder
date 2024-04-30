@@ -13,6 +13,7 @@
     align-items: stretch;
     position: relative;
     text-transform: uppercase;
+    
   }
   
   .coupon::before,

@@ -60,6 +60,8 @@ urlpatterns = [
     path('feed/<int:pk>/',FeedView.as_view(),name='f'),
     path('payment/<int:pk>/',PaymentView.as_view(),name='pay'),
     path('specific/<int:pk>/',reservedSpecific.as_view(),name='spec'),
+    path('paid/',Paid.as_view(),name='p'),
+    path('adminviewreserve/',AdminViewReservation.as_view(),name='reserve'),
     path('',include(router.urls)) 
 ]
 

@@ -390,7 +390,15 @@ class Districts(APIView):
 class ReservedAll(APIView):
     def get(self,request):
         user=request.user.id
-        data=ReservedSlots.objects.filter(user=user,is_paid=False)
+        data=ReservedSlots.objects.filter(user=user,is_paid=False)   
+        print(data)
+        ser=ReservationSer(data,many=True)
+        return Response(ser.data)
+
+class Paid(APIView):
+    def get(self,request):
+        user=request.user.id
+        data=ReservedSlots.objects.filter(user=user,is_paid=True)
         print(data)
         ser=ReservationSer(data,many=True)
         return Response(ser.data)
@@ -449,6 +457,17 @@ class reserved(APIView):
         data=ReservedSlots.objects.filter(zone=id)
         # user=ParkZone.objects.filter(user=request.user)
         ser=ReservationSer(data,many=True)
+        return Response(ser.data)        
+
+class AdminViewReservation(APIView):
+    def get(self,request,**kwargs):
+        user=request.user
+        print(user)
+        zones=ParkZone.objects.filter(owner=user)
+        # print(zones)
+        data=ReservedSlots.objects.filter(zone__owner=user)
+        print(data)
+        ser=ReserveViewAdmin(data,many=True)
         return Response(ser.data)        
 
 class reservedSpecific(APIView):

@@ -16,7 +16,7 @@ resall:any;
 
   constructor(private ds:ApiService,private ar:ActivatedRoute,private fb:FormBuilder,private rt:Router){
   
-    this.ds.allreserved().then(res=>res.json()).then(data=>this.resall=data)
+    this.ds.paid().then(res=>res.json()).then(data=>this.resall=data)
     console.log(this.resall)
 
 

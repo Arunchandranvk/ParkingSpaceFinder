@@ -15,53 +15,56 @@
     </div>
 </nav>
 
+<div class="row " *ngFor="let i of resall " >
 
-<div class="coupon mt-3" style="width: 500px;">
-    <div class="left">
-      <div>Pay Slip</div>
-    </div>
-    <div class="center ">
-      <div class="screen flex-center">
-        <div class="popup flex p-lg">
-          <div class="close-btn pointer flex-center p-sm">
-            <i class="ai-cross"></i>
-          </div>
-          
-          <!-- TICKET VIEW -->
-          
-          <div class="ticket-container flex-fill mt-3 ml-3" *ngFor="let i of resall " style="height:200px;text-align: left;">
-            <div class="ticket-header">
-              <i class="ai-ticket-fill size-xl f-main-color"></i>
-              <span class="title">Ticket Details</span>
+    <div class="coupon mt-3" style="width: 800px;" >
+      <div class="left">
+        <div>Pay Slip</div>
+      </div>
+      <div class="center ">
+        <div class="screen flex-center">
+          <div class="popup flex p-lg">
+            <div class="close-btn pointer flex-center p-sm">
+              <i class="ai-cross"></i>{{ i.vehicle_numberplate }}
             </div>
-            <div class="ticket-body">
-              <div class="ticket-info">
-                <div class="ticket-property">
-                  <strong>Parkzone:</strong> <span>{{ i.zone }}</span>
-                </div>
-                <div class="ticket-property">
-                  <strong>Slot:</strong> <span>{{ i.slot_number }}</span>
-                </div>
-                <div class="ticket-property">
-                  <strong>Vehicle:</strong> <span>{{ i.vehicle_numberplate }}</span>
-                </div>
-                <div class="ticket-property">
-                  <strong>Ticket Code:</strong> <span>{{ i.ticket_code }}</span>
-                </div>
-                <div class="ticket-property">
-                  <strong>Booking Date:</strong> <span>{{ i.start_time }}</span>
-                </div>
-                <div class="ticket-property">
-                  <strong>Price:</strong> <span>{{ i.price }}</span>
+            
+            <!-- TICKET VIEW -->
+            
+            <div class="ticket-container flex-fill mt-5 ml-3"  style="height:200px;text-align: left;">
+              <div class="ticket-header">
+                <i class="ai-ticket-fill size-xl f-main-color"></i>
+                <span class="title">Ticket Details</span>
+              </div>
+              <div class="ticket-body">
+                <div class="ticket-info">
+                  <div class="ticket-property">
+                    <strong>Parkzone:</strong> <span>{{ i.zone }}</span>
+                  </div>
+                  <div class="ticket-property">
+                    <strong>Slot:</strong> <span>{{ i.slot_number }}</span>
+                  </div>
+                  <!-- <div class="ticket-property">
+                    <strong>Vehicle:</strong> <span>{{ i.vehicle_numberplate }}</span>
+                  </div> -->
+                  <!-- <div class="ticket-property">
+                    <strong>Ticket Code:</strong> <span>{{ i.ticket_code }}</span>
+                  </div> -->
+                  <div class="ticket-property">
+                    <strong>Booking Date:</strong> <span>{{ i.start_time }}</span>
+                  </div>
+                  <div class="ticket-property">
+                    <strong>Price:</strong> <span>{{ i.price }}</span>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div class="right">
+        <div>{{ i.ticket_code }}</div>
+      </div>
     </div>
-    <div class="right">
-      <div>87878521112</div>
-    </div>
-  </div>
   
+    
+  </div>

@@ -23,7 +23,10 @@
             <div class="card-body">
                 <a [routerLink]="'/viewbooking/' + zone.id" style="text-decoration: none;">
                 <div class="text-center">
-                    <img class="rounded-circle" src="assets/4.jpeg" alt="Profile Image" style="height: 200px; width: 200px;">
+                    <img *ngIf="zone.vehicle_type === 'car'" class="rounded-circle" src="assets/4.jpeg" alt="Profile Image" style="height: 200px; width: 200px;">
+                    <img *ngIf="zone.vehicle_type === 'bike'" class="rounded-circle" src="assets/bike.avif" alt="Profile Image" style="height: 200px; width: 200px;">
+                    <img *ngIf="zone.vehicle_type === 'heavy'" class="rounded-circle" src="assets/heavy.png" alt="Profile Image" style="height: 200px; width: 200px;">
+                
                 </div>
                 <div class="text-center mt-3">
                     <h5 class="card-title" style="color: black;">{{ zone.name }}</h5>

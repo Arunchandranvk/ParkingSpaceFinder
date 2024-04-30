@@ -25,6 +25,8 @@ import { PaymentComponent } from './payment/payment.component';
 import { FeedbackComponent } from './feedback/feedback.component';
 import { ViewfeedbackComponent } from './viewfeedback/viewfeedback.component';
 import { PayslipComponent } from './payslip/payslip.component';
+import { AdminviewreserveComponent } from './adminviewreserve/adminviewreserve.component';
+
 
 const routes: Routes = [
   {
@@ -101,7 +103,10 @@ const routes: Routes = [
   },
   {
     path:'payslip',component:PayslipComponent
-  }
+  },
+  {
+    path:'viewreserve',component:AdminviewreserveComponent
+  },
  
 
 ];

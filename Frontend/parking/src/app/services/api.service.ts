@@ -108,6 +108,26 @@ export class ApiService {
     })
   }
 
+  paid(){
+    return fetch('http://127.0.0.1:8000/paid/',{
+      method:'GET',
+      headers:{
+        'Content-type':'application/json; charset="UTF-8" ',
+        'Authorization':`Token ${localStorage.getItem("token")}`
+      }
+    })
+  }
+
+  adminviewreserve(){
+    return fetch('http://127.0.0.1:8000/adminviewreserve/',{
+      method:'GET',
+      headers:{
+        'Content-type':'application/json; charset="UTF-8" ',
+        'Authorization':`Token ${localStorage.getItem("token")}`
+      }
+    })
+  }
+
   allreservedbooking(){
     return fetch('http://127.0.0.1:8000/all/',{
       method:'GET',

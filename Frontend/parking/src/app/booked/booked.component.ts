@@ -68,6 +68,8 @@ constructor(private ds:ApiService,private ar:ActivatedRoute,private fb:FormBuild
         .then((response: any) => response.json())
         .then((data: any) => {
           console.log(data);
+          alert("Canceled successful!");
+          window.location.reload();
         })
         .catch((error: any) => {
           console.error("Error occurred while reserving:", error);

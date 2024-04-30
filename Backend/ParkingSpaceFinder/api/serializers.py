@@ -104,6 +104,14 @@ class ReservationSer(serializers.ModelSerializer):
 
 
 
+class ReserveViewAdmin(serializers.ModelSerializer):
+    zone = serializers.CharField(source='zone.name')
+    class Meta:
+        model=ReservedSlots
+        fields = '__all__'
+
+
+
 class PasswordChangeSerializer(serializers.Serializer):
     old_password = serializers.CharField(required=True)
     new_password = serializers.CharField(required=True) 

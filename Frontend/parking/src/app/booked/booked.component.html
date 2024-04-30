@@ -63,7 +63,7 @@
             <p  *ngIf="i.is_paid" class=" bg-success " style="border-radius: 0.75rem;">Paid</p>
           </td>
            <td >
-            <a *ngIf="!i.is_paid"  class="btn btn-danger btn-block" (click)="cancelreserve(i.id)">Cancel</a>
+            <a *ngIf="!i.checkout"  class="btn btn-danger btn-block" (click)="cancelreserve(i.id)">Cancel</a>
           </td>
            </tr>
           </table>
