@@ -77,7 +77,7 @@ ngOnInit(): void {
           console.log(data);
           if (data.message === 'Successfully Booked') {
             if (this.reservationform.valid) {
-              this.rt.navigate(['parkzone', res.pk]);
+              this.rt.navigate(['booked']);
               alert("Reservation Successful");
             } else {
               alert("You already have an active reservation");

@@ -194,6 +194,16 @@ export class ApiService {
       }
     })
   }
+  
+  deleteparkzone(pk:any){
+    return fetch(`http://127.0.0.1:8000/zoneupdate/${pk}/`,{
+      method:'DELETE',
+      headers:{
+        'Content-type':'application/json; charset="UTF-8" ',
+        'Authorization':`Token ${localStorage.getItem("token")}`
+      }
+    })
+  }
   // updateParkzone(pk: number, data: any): Observable<any> {
   //   return this.http.put<any>(`${this.baseUrl}/${pk}/`, data);
   // }
@@ -282,15 +292,7 @@ export class ApiService {
     })
   }
 
-  // searchParkZones(state: number, district: number, location: number, vehicleType: string): Observable<any> {
-  //   const params = new HttpParams()
-  //     .set('state', state.toString())
-  //     .set('district', district.toString())
-  //     .set('location', location.toString())
-  //     .set('vehicle_type', vehicleType);
 
-  //   return this.http.get<any>(`${this.baseUrl}/search/`, { params });
-  // }
 
   payment(pk:any,data:any){
     return fetch(`http://127.0.0.1:8000/payment/${pk}/`,{

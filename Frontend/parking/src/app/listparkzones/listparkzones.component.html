@@ -45,6 +45,7 @@
             </a>
                 <div class="text-center mt-3">
                     <button class="btn btn-success " [routerLink]="'/updateparkzone/' + zone.id" style="margin-right: 5px;">Update</button>
+                    <button class="btn btn-danger " (click)="deletezone(zone.id)" style="margin-right: 5px;">Delete</button>
                     <button class="btn btn-primary" [routerLink]="'/viewfeedback/' + zone.id">Feedbacks</button>
                 </div>
            

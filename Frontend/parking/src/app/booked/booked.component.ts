@@ -46,18 +46,29 @@ constructor(private ds:ApiService,private ar:ActivatedRoute,private fb:FormBuild
   }
   
 
-  checkins(pk:number) {
+  checkins(pk: number) {
     this.ar.params.subscribe((res: any) => {
       this.ds.checkin(pk)
-        .then((response: any) => response.json())
+        .then((response: any) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error('Failed to check in');
+          }
+        })
         .then((data: any) => {
           console.log(data);
-          alert("Check-In successful!");
-          window.location.reload();
+          alert(data.message);
+          window.location.reload(); // Reload the page after successful check-in
         })
         .catch((error: any) => {
-          console.error("Error occurred while reserving:", error);
-          alert("An error occurred while processing your reservation. Please try again later.");
+          console.error("Error occurred while check-in:", error);
+          // Display appropriate error message based on error response status
+          if (error.status === 400) {
+            alert("Wait For Your Slot Time");
+          } else {
+            alert("An error occurred while processing your check-in. Please try again later.");
+          }
         });
     });
   }

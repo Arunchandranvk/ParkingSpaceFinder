@@ -18,15 +18,24 @@ export class PaymentComponent {
   constructor(private fb: FormBuilder, private ds: ApiService,private ar:ActivatedRoute,private rt:Router) {
    
 
-
-
+    this.ar.params.subscribe((res:any)=>{
+      this.data=this.ds.specific(res.pk).then(res => res.json()).then((data:any)=>{
+        this.data = data;
+        console.log(this.data); // Move console log here
+      })
+      .catch(error => console.error(error));
+    })
+    
     this.paymentForm = this.fb.group({
       cardnumber: ['', Validators.required],
       expirationDate: ['', Validators.required],
       cvv: ['', Validators.required],
      
     });
-  }
+    }
+
+
+  
 
   payments() {
     this.ar.params.subscribe((res: any) => {

@@ -26,7 +26,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { ViewfeedbackComponent } from './viewfeedback/viewfeedback.component';
 import { PayslipComponent } from './payslip/payslip.component';
 import { AdminviewreserveComponent } from './adminviewreserve/adminviewreserve.component';
-
+import { UserchangepasswordComponent } from './userchangepassword/userchangepassword.component';
 
 const routes: Routes = [
   {
@@ -70,6 +70,9 @@ const routes: Routes = [
   },
   {
     path:'changeps',component:ChangepasswordComponent
+  },
+  {
+    path:'changepsuser',component:UserchangepasswordComponent
   },
   {
     path:'listparkzone',component:ListparkzonesComponent

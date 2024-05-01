@@ -33,6 +33,7 @@ import { FeedbackComponent } from './feedback/feedback.component';
 import { ViewfeedbackComponent } from './viewfeedback/viewfeedback.component';
 import { PayslipComponent } from './payslip/payslip.component';
 import { AdminviewreserveComponent } from './adminviewreserve/adminviewreserve.component';
+import { UserchangepasswordComponent } from './userchangepassword/userchangepassword.component';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { AdminviewreserveComponent } from './adminviewreserve/adminviewreserve.c
     FeedbackComponent,
     ViewfeedbackComponent,
     PayslipComponent,
-    AdminviewreserveComponent
+    AdminviewreserveComponent,
+    UserchangepasswordComponent
   ],
   imports: [
     BrowserModule,

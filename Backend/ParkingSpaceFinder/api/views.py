@@ -19,6 +19,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from .models import *
+from datetime import datetime, timedelta
 # Create your views here.
 
 
@@ -268,7 +269,7 @@ class ParkZoneSearchView(APIView):
         except ParkZone.DoesNotExist:
             return Response({'error': 'No matching ParkZone found.'}, status=404)
 
-        serializer = ParkZoneSearchSerializer(zones, many=True)
+        serializer = ParkSerializer(zones, many=True)
         return Response(serializer.data)
 
 
@@ -312,6 +313,13 @@ class CheckOutView(APIView):
             print(reservation.id)
             reserveslots = ReservedZones.objects.get(zone=reservation.zone,ReservedSlot=reservation.id)
             print(reservation)
+            # checkout_time = timezone.now().astimezone(reservation.end_time.tzinfo)
+            # checkout_time += timedelta(hours=5, minutes=30)
+            # if reservation.end_time < checkout_time:
+            #     reservation.end_time=checkout_time
+            #     reservation.price*=2
+            #     reservation.save()
+
             reservation.checkout = True
             reservation.save()
 
@@ -339,12 +347,21 @@ class CheckInView(APIView):
             print(pk)
             reservations = ReservedSlots.objects.get(user=request.user.id, checkin=False, pk=pk)
             print(reservations)
+            checkin_time = timezone.now().astimezone(reservations.start_time.tzinfo) 
+            checkin_time += timedelta(hours=5, minutes=30)
+            print(checkin_time)
+            print(reservations.start_time)
+ 
+            if reservations.start_time > checkin_time:
+                return Response({'message':'Wait For Your Slot Time'})
+
             reservations.checkin = True
             reservations.save()
 
-            return Response({'message': 'Successfully Checked Out'})
+            return Response({'message': 'Successfully Checked In'})
         except ReservedSlots.DoesNotExist:
             return Response({'message': f'No Parking reservation exists for {request.user} with ID {pk}'}, status=status.HTTP_404_NOT_FOUND)
+
 
 from django.contrib.auth import update_session_auth_hash
 
@@ -416,7 +433,7 @@ class Districts(APIView):
 class ReservedAll(APIView):
     def get(self,request):
         user=request.user.id
-        data=ReservedSlots.objects.filter(user=user,is_paid=False)   
+        data=ReservedSlots.objects.filter(user=user,checkout=False)   
         print(data)
         ser=ReservationSer(data,many=True)
         return Response(ser.data)
@@ -545,11 +562,18 @@ class PaymentView(APIView):
             if ser.is_valid():
                 try:
                     slot=ReservedSlots.objects.get(pk=pk)
+                    checkout_time = timezone.now().astimezone(slot.end_time.tzinfo)
+                    checkout_time += timedelta(hours=5, minutes=30)
+                    if slot.end_time < checkout_time:
+                        slot.end_time=checkout_time
+                        slot.price*=2
+                        slot.save()
+            
                     slot.is_paid= True
                     slot.save()
                 except ReservedSlots.DoesNotExist:
                      return Response({"error": "slot does not exist"}, status=status.HTTP_404_NOT_FOUND)
-
+                
                 ser.save(user=user_instance, slot=slot ,amount=slot.price)  # Assign User instance
                 return Response(ser.data, status=status.HTTP_201_CREATED)
             print(ser.errors)
