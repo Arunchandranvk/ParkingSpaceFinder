@@ -33,7 +33,7 @@ urlpatterns = [
     path('swagger<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
-    path("register/user", UserRegistration.as_view(), name='user-register'), #completed
+    path("register/user/", UserRegistration.as_view(), name='user-register'), #completed
     path("register/admin", AdminRegistration.as_view(), name='admin-register'), #completed
     path('profile/<int:pk>/', UserUpdateProfile.as_view(), name='user-update_profile'),
     path('profiledmin/<int:pk>/', AdminUpdateProfile.as_view(), name='admin-update_profile'),
