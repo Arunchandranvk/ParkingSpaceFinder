@@ -1,18 +1,17 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { ApiService } from '../services/api.service';
-import { Router } from '@angular/router';
+import { FormBuilder,Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
+import { ApiService } from '../services/api.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  selector: 'app-mechanicregister',
+  templateUrl: './mechanicregister.component.html',
+  styleUrls: ['./mechanicregister.component.css']
 })
-export class RegisterComponent {
- 
+export class MechanicregisterComponent {
 
-  constructor(private fb:FormBuilder,private ds:ApiService,private ar:ActivatedRoute,private rt:Router){ }
+  constructor(private fb:FormBuilder,private ds:ApiService,private ar:ActivatedRoute,private rt:Router){}
 
   regform = this.fb.group({
     first_name: ['', Validators.required], // Required validator for first name
@@ -27,21 +26,22 @@ export class RegisterComponent {
     profile_image: '', // No validation for profile image
   });
   
-  register(){
+  registermech(){
     if (this.regform.valid) {
-      this.ds.reg(this.regform.value).then(res=>res.json()).then(data=>{
-     console.log(data);
-       if (data && !data.data) {
-         this.rt.navigate(['login']);
-         alert('Registration Successful');
-       } else {
-         alert('Something went wrong: ' + JSON.stringify(data.data));
-       }
-     }).catch(error => {
-       alert('Something went wrong: ' + error.data);
-     });
-   } else {
-     alert('Form is not valid. Please check the input fields.');
-   }
- }
+       this.ds.mechreg(this.regform.value).then(res=>res.json()).then(data=>{
+      console.log(data);
+        if (data && !data.data) {
+          this.rt.navigate(['login']);
+          alert('Registration Successful');
+        } else {
+          alert('Something went wrong: ' + JSON.stringify(data.data));
+        }
+      }).catch(error => {
+        alert('Something went wrong: ' + error.data);
+      });
+    } else {
+      alert('Form is not valid. Please check the input fields.');
+    }
+  }
 }
+

@@ -32,16 +32,21 @@ res:any;
 
   
   register(){
-    this.ds.adminreg(this.regform.value).then(res=>res.json()).then(data=>{
-      console.log(data)
-      if(this.regform.valid){
-        this.rt.navigate(['login'])
-        alert("Registration Successful")
-      }
-      else {
-         alert("Something went wrong !!!!")
-      }  
-    })
-  }   
+    if (this.regform.valid) {
+      this.ds.adminreg(this.regform.value).then(res=>res.json()).then(data=>{
+     console.log(data);
+       if (data && !data.data) {
+         this.rt.navigate(['login']);
+         alert('Registration Successful');
+       } else {
+         alert('Something went wrong: ' + JSON.stringify(data.data));
+       }
+     }).catch(error => {
+       alert('Something went wrong: ' + error.data);
+     });
+   } else {
+     alert('Form is not valid. Please check the input fields.');
+   }
+ }
 
 }

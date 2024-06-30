@@ -56,7 +56,6 @@ class ParkZone(models.Model):
         ('car', 'Car'),
         ('heavy', 'Heavy Vehicle')
     )
-
     name = models.CharField(max_length=100)
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     total_slots = models.PositiveIntegerField()
@@ -158,3 +157,83 @@ class Payment(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     slot=models.ForeignKey(ReservedSlots,on_delete=models.CASCADE)
 
+class MechanicProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="mechanic_profile")
+    name=models.CharField(max_length=100)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, related_name="mechanic_location")
+    phone = models.CharField(max_length=200)
+    dob = models.DateField(null=True)
+    experience = models.IntegerField()
+    STATUS_CHOICES = [
+        ("approved", "Approved"),
+        ("pending", "Pending"),
+    ]
+    status = models.CharField(max_length=200, choices=STATUS_CHOICES, default="pending")
+    SPECIALIZATION_CHOICES = [
+        ("two_wheeler", "Two Wheeler"),
+        ("four_wheeler", "Four Wheeler"),
+        ("heavy_vehicle", "Heavy Vehicle"),
+    ]
+    specialized_in = models.CharField(max_length=200, choices=SPECIALIZATION_CHOICES)
+    bio = models.CharField(max_length=200)
+    profile_pic = models.ImageField(upload_to="mech_pics",default='static/images/profile/default.jpg', blank=True, null=True)
+
+    def __str__(self):
+        return self.user.username
+    
+
+class ReqToMechanic(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name="req_profile")
+    mechanic=models.ForeignKey(MechanicProfile,on_delete=models.CASCADE,related_name="req_profile")
+    description=models.CharField(max_length=200)
+    phone=models.IntegerField()
+    location=models.ForeignKey(Location,on_delete=models.CASCADE,related_name="req_location")
+    STATUS_CHOICES = [
+        ("completed", "Completed"),
+        ("Payment Pending", "Payment Pending"),
+        ("pending", "Pending"),
+    ]
+    status = models.CharField(max_length=200, choices=STATUS_CHOICES, default="pending")
+    datetime=models.DateTimeField(auto_now_add=True,null=True)
+
+
+class Bill(models.Model):
+    customer=models.ForeignKey(User,on_delete=models.CASCADE)
+    mechanic=models.ForeignKey(MechanicProfile,on_delete=models.CASCADE)
+    req=models.ForeignKey(ReqToMechanic,on_delete=models.CASCADE)
+    payment=models.PositiveBigIntegerField()
+    # STATUS_CHOICES = [
+    #     ("completed", "Completed"),
+    #     ("pending", "Pending"),
+    # ]
+    # status = models.CharField(max_length=200, choices=STATUS_CHOICES, default="pending")
+
+
+class UserPayment(models.Model):
+    customer=models.ForeignKey(User,on_delete=models.CASCADE,related_name='cust_pay')
+    mechanic=models.ForeignKey(MechanicProfile,on_delete=models.CASCADE,related_name='mech_pay')
+    req=models.OneToOneField(ReqToMechanic,on_delete=models.CASCADE,related_name='user_pay')
+    acholdername=models.CharField(max_length=100)
+    accno=models.PositiveBigIntegerField()
+    cvv=models.IntegerField()
+    exp=models.DateField()
+    amount=models.PositiveBigIntegerField()
+    
+    def __str__(self):
+        return self.acholdername
+
+
+class FeedBackMechanic(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE,related_name="feedback_userprofile")
+    request=models.ForeignKey(ReqToMechanic,on_delete=models.CASCADE,related_name="feedback_req",null=True)
+    mechanic=models.ForeignKey(MechanicProfile,on_delete=models.CASCADE,related_name="feedback_mechanicprofile")
+    text=models.CharField(max_length=200)
+    options=(
+        ("1","1"),
+        ("2","2"),
+        ("3","3"),
+        ("4","4"),
+        ("5","5"),
+    )
+    rating=models.CharField(max_length=200,choices=options,default="5")
+    date=models.DateTimeField(auto_now_add=True)

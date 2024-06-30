@@ -163,3 +163,36 @@ class PaymentSer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields =['cardnumber','expirationDate','cvv']
+
+class MechanicSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "email", "username", "password", "dob", "gender", "address", "phone_number"]
+
+    def create(self, validated_data):
+        validated_data["is_staff"] = True
+        user = User.objects.create_user(**validated_data)
+        print(user)
+        return user
+
+class MechanicSer(serializers.ModelSerializer):
+
+    class Meta:
+        model = MechanicProfile
+        exclude =['user']
+
+class ReqToMechanicSer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ReqToMechanic
+        exclude=['mechanic','user']
+
+class BillSer(serializers.ModelSerializer):
+    class Meta:
+        model = Bill  
+        exclude=['mechanic','customer','req']
+
+class Pay_To_MechanicSer(serializers.ModelSerializer):
+    class Meta:
+        model = UserPayment  
+        exclude=['mechanic','customer','req']

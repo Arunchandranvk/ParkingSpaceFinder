@@ -29,8 +29,11 @@ export class LoginComponent {
         localStorage.setItem('token',data['token']);
         if (data["is_superuser"] == true ) {
           this.rt.navigate(['table']); // Navigate to admin dashboard if user is a superuser
-        } else {
-          this.rt.navigate(['location']); // Navigate to regular user dashboard if user is not a superuser
+        } else if(data["is_staff"] == true) {
+          this.rt.navigate(['mechanichome']); // Navigate to regular user dashboard if user choice is User
+        }
+        else{
+          this.rt.navigate(['location']);
         }
         // this.rt.navigate(['location'])
         // // console.log(this.log.value)

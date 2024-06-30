@@ -31,10 +31,12 @@ class CustomAuthToken(ObtainAuthToken):
         token, created = Token.objects.get_or_create(user=user)
         users=User.objects.get(id=user.id)
         super=users.is_superuser
+        staff=users.is_staff
         
         
         return Response(data={'status':1,'token': token.key,
-            'is_superuser':super
+            'is_superuser':super,
+            'is_staff':staff
             })
 
 
@@ -44,7 +46,15 @@ class UserRegistration(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'data':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+class MechanicRegistration(APIView):
+    def post(self, request):
+        serializer = MechanicSerializers(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response({'data':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
     
 
 class AdminRegistration(APIView):
@@ -53,7 +63,7 @@ class AdminRegistration(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'data':serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
     
 class ProfileView(APIView):
     def get(self,request):
@@ -581,4 +591,68 @@ class PaymentView(APIView):
         except Exception as e:
             print(e)
             return Response(str(e), status=status.HTTP_400_BAD_REQUEST)
+
+   
+class MechanicProfileView(APIView):
+    def post(self, request, **kwargs):
+        data = request.data
+        serializer = MechanicSer(data=data)
+        if serializer.is_valid():
+            user = request.user
+            print(user)
+            serializer.save(user=user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def get(self, request, **kwargs):
+        mechanics = MechanicProfile.objects.all()  # Retrieve feeds for the specified zone
+        serializer = MechanicSer(mechanics, many=True)
+        return Response(serializer.data)
+    
+class MechanicProfileSpecificView(APIView):
+    def get(self, request, **kwargs):
+        user=request.user
+        mechanic_profile = MechanicProfile.objects.get(user=user)  # Retrieve feeds for the specified zone
+        serializer = MechanicSer(mechanic_profile)
+        return Response(serializer.data)
+    
+class MechanicRequestCreate(APIView):
+    def post(self, request, **kwargs):
+        data = request.data
+        serializer = ReqToMechanicSer(data=data)
+        if serializer.is_valid():
+            user = request.user
+            id=kwargs.get('pk')
+            mech=MechanicProfile.objects.get(id=id)
+            print(user)
+            serializer.save(user=user,mechanic=mech)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class CreateBillMechanic(APIView):
+    def post(self, request, **kwargs):
+        data = request.data
+        serializer = BillSer(data=data)
+        if serializer.is_valid():
+            user = request.user
+            id=kwargs.get('pk')
+            req=ReqToMechanic.objects.get(id=id)
+            print(user)
+            serializer.save(customer=user,mechanic=req.mechanic,req=req)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class PaymentToMechanicView(APIView):
+    def post(self, request, **kwargs):
+        data = request.data
+        serializer = Pay_To_MechanicSer(data=data)
+        if serializer.is_valid():
+            user = request.user
+            id=kwargs.get('pk')
+            req=ReqToMechanic.objects.get(id=id)
+            print(user)
+            serializer.save(customer=user,mechanic=req.mechanic,req=req)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 

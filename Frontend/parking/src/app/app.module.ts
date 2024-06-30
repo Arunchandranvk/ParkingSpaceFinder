@@ -34,6 +34,9 @@ import { ViewfeedbackComponent } from './viewfeedback/viewfeedback.component';
 import { PayslipComponent } from './payslip/payslip.component';
 import { AdminviewreserveComponent } from './adminviewreserve/adminviewreserve.component';
 import { UserchangepasswordComponent } from './userchangepassword/userchangepassword.component';
+import { MechanicComponent } from './mechanic/mechanic.component';
+import { MechanicregisterComponent } from './mechanicregister/mechanicregister.component';
+import { AddprofilemechanicComponent } from './addprofilemechanic/addprofilemechanic.component';
 
 
 @NgModule({
@@ -67,7 +70,10 @@ import { UserchangepasswordComponent } from './userchangepassword/userchangepass
     ViewfeedbackComponent,
     PayslipComponent,
     AdminviewreserveComponent,
-    UserchangepasswordComponent
+    UserchangepasswordComponent,
+    MechanicComponent,
+    MechanicregisterComponent,
+    AddprofilemechanicComponent
   ],
   imports: [
     BrowserModule,

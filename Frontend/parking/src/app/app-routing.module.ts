@@ -27,6 +27,9 @@ import { ViewfeedbackComponent } from './viewfeedback/viewfeedback.component';
 import { PayslipComponent } from './payslip/payslip.component';
 import { AdminviewreserveComponent } from './adminviewreserve/adminviewreserve.component';
 import { UserchangepasswordComponent } from './userchangepassword/userchangepassword.component';
+import { MechanicComponent } from './mechanic/mechanic.component';
+import { MechanicregisterComponent } from './mechanicregister/mechanicregister.component';
+import { AddprofilemechanicComponent } from './addprofilemechanic/addprofilemechanic.component';
 
 const routes: Routes = [
   {
@@ -109,6 +112,15 @@ const routes: Routes = [
   },
   {
     path:'viewreserve',component:AdminviewreserveComponent
+  },
+  {
+    path:'mechanichome',component:MechanicComponent
+  },
+  {
+    path:'mechanicregister',component:MechanicregisterComponent
+  },
+  {
+    path:'mechanicaddprofile',component:AddprofilemechanicComponent
   },
  
 

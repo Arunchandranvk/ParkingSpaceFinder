@@ -305,6 +305,27 @@ export class ApiService {
     })
   }
 
+  mechreg(data:any){
+    return fetch('http://127.0.0.1:8000/mechregister/',{
+      method:'POST',
+      body: JSON.stringify(data),
+      headers:{
+        'Content-type':'application/json; charset="UTF-8" ',
+        'Authorization':`Token ${localStorage.getItem("token")}`
+      }
+    })
+  }
+  mechprofileadd(data:any){
+    return fetch('http://127.0.0.1:8000/mechanicprofileadd/',{
+      method:'POST',
+      body: JSON.stringify(data),
+      headers:{
+        'Content-type':'application/json; charset="UTF-8" ',
+        'Authorization':`Token ${localStorage.getItem("token")}`
+      }
+    })
+  }
+
 }
 
 

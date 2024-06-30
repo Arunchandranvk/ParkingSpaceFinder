@@ -81,16 +81,22 @@ addparkzoneform = this.fb.group({
   })
 
 addzone(){
+  if (this.addparkzoneform.valid) {
     this.ds.addparkzone(this.addparkzoneform.value).then(res=>res.json()).then(data=>{
-      console.log(data)
-      if(this.addparkzoneform.valid){
-        this.rt.navigate(['table'])
-        alert('Parkzone Added Successfully')
-      }
-      else{
-        alert('Something Went Wrong !!!!')
-      }
-    })
-  }
+   console.log(data);
+     if (data && !data.data) {
+       this.rt.navigate(['login']);
+       alert('Profile Added Successfully');
+     } else {
+       alert('Something went wrong: ' + JSON.stringify(data.data));
+     }
+   }).catch(error => {
+     alert('Something went wrong: ' + error.data);
+   });
+ } else {
+   alert('Form is not valid. Please check the input fields.');
+ }
+}
+
 
 }

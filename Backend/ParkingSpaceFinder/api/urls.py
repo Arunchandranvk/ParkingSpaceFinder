@@ -63,7 +63,16 @@ urlpatterns = [
     path('paid/',Paid.as_view(),name='p'),
     path('adminviewreserve/',AdminViewReservation.as_view(),name='reserve'),
     path('zoneupdate/<int:pk>/',ParkzoneUpdateProfile.as_view(),name='reserve'),
-    path('',include(router.urls)) 
+    path('',include(router.urls)) ,
+
+    # Mechanic
+
+    path('mechregister/',MechanicRegistration.as_view(),name='mechanic-reg'),
+    path('mechanicprofileadd/',MechanicProfileView.as_view(),name='mechanic-add'),
+    path('profileview_mechanic/',MechanicProfileSpecificView.as_view(),name='mechprofile'),
+    path('reqtomechanic/<int:pk>/',MechanicRequestCreate.as_view(),name='reqmech'),
+    path('bill-creation/<int:pk>/',CreateBillMechanic.as_view(),name='billcreate'),
+    path('mechanicpay/<int:pk>/',PaymentToMechanicView.as_view(),name='paymech'),
 ]
 
 
